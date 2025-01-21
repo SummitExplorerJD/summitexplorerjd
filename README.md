@@ -48,3 +48,9 @@ export default tseslint.config({
   },
 })
 ```
+
+
+## Libreria de componentes
+
+ - https://www.hyperui.dev/
+ - https://flowbite.com/docs/getting-started/react/
