@@ -54,3 +54,4 @@ export default tseslint.config({
 
  - https://www.hyperui.dev/
  - https://flowbite.com/docs/getting-started/react/
+ - https://tailwindtoolbox.com/icons
