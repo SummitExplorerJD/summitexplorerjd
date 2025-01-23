@@ -1,4 +1,3 @@
-import './App.css'
 import { DevAlert } from '~/components/DevAlert'
 import AsideMenu from '~/components/AsideMenu'
 import Header from '~/components/Header'

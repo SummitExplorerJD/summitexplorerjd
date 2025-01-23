@@ -1,0 +1,9 @@
+.aside-menu {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+}
+
+.aside-menu-inverse {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
+}

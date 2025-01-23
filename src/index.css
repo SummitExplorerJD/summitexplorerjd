@@ -1,3 +1,6 @@
+/* https://fonts.google.com/specimen/Nunito+Sans */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
 @import "tailwindcss";
 
 @theme {
@@ -8,11 +11,13 @@
 	--neutral-2-smjd: #A8CBD1;
 	--complement-1-smjd: #9F6768;
 	--complement-2-smjd: #F3A712;
+
+	--font-nunito-sans-msjd: 'Nunito Sans', sans-serif;
 }
 
 @layer base {
 	body {
-		background-color: var(--neutral-1-smjd);
+		font-family: var(--font-nunito-sans-msjd);
 	}
 }
 
