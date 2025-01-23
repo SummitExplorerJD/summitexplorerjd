@@ -13,7 +13,7 @@ const AsideMenu: FC = () => {
     useEffect(() => {
         const menuItemsNames: itemType[] = ['Inicio', 'Sobre Mi', 'Servicios', 'Habilidades', 'Proyectos', 'Contacto'];
         const segmentNumbers = 30;
-        const segmentHeight: number = window.screen.height / segmentNumbers;
+        const segmentHeight: number = window.innerWidth / segmentNumbers;
         const segments: JSX.Element[] = [];
         for (let i = 0; i < segmentNumbers; i++) {
             segments.push(<div key={i} className={`w-1 bg-${i%2==0? "[var(--primary-smjd)]" : "transparent"} rounded-full`} style={{ height: segmentHeight }}></div>);
@@ -45,12 +45,12 @@ const AsideMenu: FC = () => {
         if (/desktop/.test(deviceType)) {
             setTimeout(() => {
                 const asideWidth = document.querySelector('aside')?.clientWidth as number;
-                const windowWidth = window.screen.width;
-                const bodyWidth = windowWidth - asideWidth - 10;
+                const windowWidth = window.innerWidth;
+                const bodyWidth = windowWidth - asideWidth;
                 console.log(asideWidth, windowWidth, bodyWidth);
-                document.querySelector('main')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px;`);
-                document.querySelector('header')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px;`);
-                document.querySelector('footer')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px;`);
+                document.querySelector('main')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
+                document.querySelector('header')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
+                document.querySelector('footer')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
             }, 500);
         }
     }, [deviceType]);
