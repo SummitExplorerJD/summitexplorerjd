@@ -4,7 +4,7 @@ export class DevAlert extends PureComponent {
 
     render(): ReactNode {
         return (
-            <div className='fixed bottom-4 right-4 z-50'>
+            <div className='fixed bottom-4 right-4 z-40 opacity-50'>
                 <div
                     role="alert"
                     className="rounded border-s-4 border-red-500 bg-red-50 p-4 dark:border-red-600 dark:bg-red-900"
