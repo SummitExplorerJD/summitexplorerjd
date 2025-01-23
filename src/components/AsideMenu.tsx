@@ -7,7 +7,7 @@ const AsideMenu: FC = () => {
     const [segmentLine, setSegmentLine] = useState<JSX.Element[]>([]);
     const [menuItems, setMenuItems] = useState<JSX.Element[]>([]);
     const [disableMenu, setDisableMenu] = useState<boolean>(false);
-    const [deviceType, setDeviceType] = useState<string>('desktop');
+    const [deviceType, setDeviceType] = useState<string>('');
     const [itemSelected, setItemSelected] = useState<itemType>('Inicio');
 
     useEffect(() => {
@@ -40,6 +40,20 @@ const AsideMenu: FC = () => {
             setDisableMenu(false);
         }
     }, []);
+
+    useEffect(() => {
+        if (/desktop/.test(deviceType)) {
+            setTimeout(() => {
+                const asideWidth = document.querySelector('aside')?.clientWidth as number;
+                const windowWidth = window.screen.width;
+                const bodyWidth = windowWidth - asideWidth - 10;
+                console.log(asideWidth, windowWidth, bodyWidth);
+                document.querySelector('main')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px;`);
+                document.querySelector('header')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px;`);
+                document.querySelector('footer')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px;`);
+            }, 500);
+        }
+    }, [deviceType]);
 
     useEffect(() => {
         const menuItemsArr: JSX.Element[] = [];
