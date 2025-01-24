@@ -55,7 +55,7 @@ const AsideMenu: FC = () => {
     useEffect(() => {
         const menuItemsArr: JSX.Element[] = [];
         menuItemsNames.forEach((item, index) => {
-            menuItemsArr.push(<li key={index * 1}><a href={`#${item.replace(' ', '')}`} onClick={() => setItemSelected(item)} className={`flex flex-row items-center uppercase text-lg ${item === itemSelected ? "text-[var(--accent-2-smjd)]" : ""}`}><div className={`w-8 h-8 rounded-full ${item === itemSelected ? "bg-[var(--accent-2-smjd)]" : "bg-[var(--primary-smjd)]"} mr-3`}></div>{item}</a></li>)
+            menuItemsArr.push(<li key={index * 1}><a href={`#${item.replace(' ', '')}`} onClick={() => {setItemSelected(item); setDisableMenu(true)}} className={`flex flex-row items-center uppercase text-lg ${item === itemSelected ? "text-[var(--accent-2-smjd)]" : ""}`}><div className={`w-8 h-8 rounded-full ${item === itemSelected ? "bg-[var(--accent-2-smjd)]" : "bg-[var(--primary-smjd)]"} mr-3`}></div>{item}</a></li>)
         });
         setMenuItems(menuItemsArr);
     }, [itemSelected]);
