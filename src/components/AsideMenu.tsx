@@ -9,6 +9,7 @@ const AsideMenu: FC = () => {
     const [disableMenu, setDisableMenu] = useState<boolean>(false);
     const [deviceType, setDeviceType] = useState<string>('');
     const [itemSelected, setItemSelected] = useState<itemType>('Inicio');
+    const [isRotated, setIsRotated] = useState<boolean>(false);
 
     useEffect(() => {
         const menuItemsNames: itemType[] = ['Inicio', 'Sobre Mi', 'Servicios', 'Habilidades', 'Proyectos', 'Contacto'];
@@ -16,26 +17,23 @@ const AsideMenu: FC = () => {
         const segmentHeight: number = window.innerWidth / segmentNumbers;
         const segments: JSX.Element[] = [];
         for (let i = 0; i < segmentNumbers; i++) {
-            segments.push(<div key={i} className={`w-1 bg-${i%2==0? "[var(--primary-smjd)]" : "transparent"} rounded-full`} style={{ height: segmentHeight }}></div>);
+            segments.push(<div key={i} className={`w-1 bg-${i % 2 == 0 ? "[var(--primary-smjd)]" : "transparent"} rounded-full`} style={{ height: segmentHeight }}></div>);
         }
         setSegmentLine(segments);
         const menuItemsArr: JSX.Element[] = [];
         menuItemsNames.forEach((item, index) => {
-            menuItemsArr.push(<li key={index}><a href={`#${item}`} onClick={() => setItemSelected(item)} className={`flex flex-row items-center uppercase text-lg`}><div className=' w-8 h-8 rounded-full bg-[var(--primary-smjd)] mr-3'></div>{item}</a></li>)
+            menuItemsArr.push(<li key={index * 1}><a href={`#${item}`} onClick={() => setItemSelected(item)} className={`flex flex-row items-center uppercase text-lg`}><div className=' w-8 h-8 rounded-full bg-[var(--primary-smjd)] mr-3'></div>{item}</a></li>)
         });
         setMenuItems(menuItemsArr);
         // Detect device type
         const userAgent = window.navigator.userAgent.toLowerCase();
         if (/mobile|android|iphone/.test(userAgent)) {
-            console.log('mobile');
             setDeviceType('mobile');
             setDisableMenu(true);
-        } else if(/ipad|tablet/.test(userAgent)) {
-            console.log('tablet');
+        } else if (/ipad|tablet/.test(userAgent)) {
             setDeviceType('tablet');
             setDisableMenu(false);
         } else {
-            console.log('desktop');
             setDeviceType('desktop');
             setDisableMenu(false);
         }
@@ -59,10 +57,15 @@ const AsideMenu: FC = () => {
         const menuItemsArr: JSX.Element[] = [];
         const menuItemsNames: itemType[] = ['Inicio', 'Sobre Mi', 'Servicios', 'Habilidades', 'Proyectos', 'Contacto'];
         menuItemsNames.forEach((item, index) => {
-            menuItemsArr.push(<li key={index}><a href={`#${item}`} onClick={() => setItemSelected(item)} className={`flex flex-row items-center uppercase text-lg ${item === itemSelected ? "text-[var(--accent-2-smjd)]" : ""}`}><div className={`w-8 h-8 rounded-full ${item === itemSelected ? "bg-[var(--accent-2-smjd)]" : "bg-[var(--primary-smjd)]"} mr-3`}></div>{item}</a></li>)
+            menuItemsArr.push(<li key={index * 1}><a href={`#${item.replace(' ', '')}`} onClick={() => setItemSelected(item)} className={`flex flex-row items-center uppercase text-lg ${item === itemSelected ? "text-[var(--accent-2-smjd)]" : ""}`}><div className={`w-8 h-8 rounded-full ${item === itemSelected ? "bg-[var(--accent-2-smjd)]" : "bg-[var(--primary-smjd)]"} mr-3`}></div>{item}</a></li>)
         });
         setMenuItems(menuItemsArr);
     }, [itemSelected]);
+
+    const handleMenuClick = () => {
+        setDisableMenu(!disableMenu);
+        setIsRotated(!isRotated);
+    };
 
     return (
         <>
@@ -76,8 +79,8 @@ const AsideMenu: FC = () => {
                     </ul>
                 </nav>
             </aside>
-            <div className={/mobile|tablet/.test(deviceType)? "fixed bottom-5 z-50 right-5 p-2 rounded-full bg-[var(--primary-smjd)] text-white cursor-pointer" : "hidden"} onClick={() => setDisableMenu(!disableMenu)}>
-                <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div className={/mobile|tablet/.test(deviceType) ? "fixed bottom-7 z-50 right-7 p-3 rounded-full bg-[var(--primary-smjd)] text-white cursor-pointer" : "hidden"} onClick={handleMenuClick}>
+                <svg className={`h-10 w-10 ${isRotated ? 'rotate-90' : 'rotate-90-inverse'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="3" y1="12" x2="21" y2="12" />
                     <line x1="3" y1="6" x2="21" y2="6" />
                     <line x1="3" y1="18" x2="21" y2="18" />
