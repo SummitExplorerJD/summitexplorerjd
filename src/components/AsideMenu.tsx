@@ -9,9 +9,10 @@ const AsideMenu: FC = () => {
     const [disableMenu, setDisableMenu] = useState<boolean>(false);
     const [deviceType, setDeviceType] = useState<string>('');
     const [itemSelected, setItemSelected] = useState<itemType>('Inicio');
+    
+    const menuItemsNames: itemType[] = ['Inicio', 'Sobre Mi', 'Servicios', 'Habilidades', 'Proyectos', 'Contacto'];
 
     useEffect(() => {
-        const menuItemsNames: itemType[] = ['Inicio', 'Sobre Mi', 'Servicios', 'Habilidades', 'Proyectos', 'Contacto'];
         const segmentNumbers = 30;
         const segmentHeight: number = window.innerWidth / segmentNumbers;
         const segments: JSX.Element[] = [];
@@ -43,7 +44,7 @@ const AsideMenu: FC = () => {
             setTimeout(() => {
                 const asideWidth = document.querySelector('aside')?.clientWidth as number;
                 const windowWidth = window.innerWidth;
-                const bodyWidth = windowWidth - asideWidth;
+                const bodyWidth = windowWidth - asideWidth - 20;
                 document.querySelector('main')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
                 document.querySelector('header')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
                 document.querySelector('footer')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
@@ -53,7 +54,6 @@ const AsideMenu: FC = () => {
 
     useEffect(() => {
         const menuItemsArr: JSX.Element[] = [];
-        const menuItemsNames: itemType[] = ['Inicio', 'Sobre Mi', 'Servicios', 'Habilidades', 'Proyectos', 'Contacto'];
         menuItemsNames.forEach((item, index) => {
             menuItemsArr.push(<li key={index * 1}><a href={`#${item.replace(' ', '')}`} onClick={() => setItemSelected(item)} className={`flex flex-row items-center uppercase text-lg ${item === itemSelected ? "text-[var(--accent-2-smjd)]" : ""}`}><div className={`w-8 h-8 rounded-full ${item === itemSelected ? "bg-[var(--accent-2-smjd)]" : "bg-[var(--primary-smjd)]"} mr-3`}></div>{item}</a></li>)
         });

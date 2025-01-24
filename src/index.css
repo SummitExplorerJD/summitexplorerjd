@@ -24,6 +24,10 @@
 		font-weight: bold;
 		color: var(--primary-smjd);
 	}
+
+	html {
+		scroll-behavior: smooth;
+	}
 }
 
 @layer components {}
