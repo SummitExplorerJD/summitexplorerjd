@@ -14,7 +14,8 @@ function App() {
   return (
     <>
       <Header></Header>
-      <main>
+      <main className='bg-[url(/1000192510.jpg)] md:bg-[url(/1000192628.jpg)] bg-cover bg-center bg-fixed bg-no-repeat'>
+        <div className='h-175'></div>
         <Home></Home>
         <AboutMe></AboutMe>
         <Services></Services>
