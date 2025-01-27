@@ -39,16 +39,20 @@ const AsideMenu: FC = () => {
         }
     }, []);
 
+    const updateBodyWidth = () => {
+        const asideWidth = document.querySelector('aside')?.clientWidth as number|| 0;
+        const windowWidth = window.innerWidth;
+        const bodyWidth = windowWidth - asideWidth - 20;
+        document.querySelector('main')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
+        document.querySelector('header')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
+        document.querySelector('footer')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
+    };
+
     useEffect(() => {
-        if (/desktop/.test(deviceType)) {
-            setTimeout(() => {
-                const asideWidth = document.querySelector('aside')?.clientWidth as number;
-                const windowWidth = window.innerWidth;
-                const bodyWidth = windowWidth - asideWidth - 20;
-                document.querySelector('main')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
-                document.querySelector('header')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
-                document.querySelector('footer')?.setAttribute('style', `position: relative; top: 0; left: ${asideWidth}px; width: ${bodyWidth}px;`);
-            }, 500);
+        if (deviceType === 'desktop') {
+            updateBodyWidth();
+            window.addEventListener('resize', updateBodyWidth);
+            return () => window.removeEventListener('resize', updateBodyWidth);
         }
     }, [deviceType]);
 

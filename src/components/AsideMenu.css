@@ -36,6 +36,7 @@
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
 }
+
 .rotate-90-inverse {
     transform: rotate(-90deg);
     transition: transform 0.3s ease-in-out;
