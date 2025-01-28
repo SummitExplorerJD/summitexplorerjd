@@ -1,13 +1,13 @@
-import { DevAlert } from '~/components/DevAlert'
+import { DevAlert } from '~/components/utils/DevAlert'
 import AsideMenu from '~/components/AsideMenu'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
-import Home from './components/Home'
-import AboutMe from './components/AboutMe'
-import Services from './components/Services'
-import Skills from './components/Skills'
-import Projects from './components/Projects'
-import Contact from './components/Contact'
+import Home from '~/components/Home'
+import AboutMe from '~/components/AboutMe'
+import Services from '~/components/Services'
+import Skills from '~/components/Skills'
+import Projects from '~/components/Projects'
+import Contact from '~/components/Contact'
 
 function App() {
 

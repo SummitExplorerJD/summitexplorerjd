@@ -1,0 +1,14 @@
+.masonry-img {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.masonry-img-item {
+    break-inside: avoid;
+}
+
+.masonry-img-item img {
+    width: 100%;
+    display: block;
+}

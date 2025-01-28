@@ -76,7 +76,7 @@ const AsideMenu: FC = () => {
                     </ul>
                 </nav>
             </aside>
-            <div className={/mobile|tablet/.test(deviceType) ? "fixed bottom-7 z-50 right-7 p-3 rounded-full bg-[var(--accent-2-smjd)] text-white cursor-pointer shadow-2xl" : "hidden"} onClick={() => setDisableMenu(!disableMenu)}>
+            <div className={/mobile|tablet/.test(deviceType) ? "fixed bottom-7 z-50 right-7 p-3 rounded-full bg-[var(--accent-2-smjd)] text-white cursor-pointer shadow-2xl border-white" : "hidden"} onClick={() => setDisableMenu(!disableMenu)}>
                 <svg className={`h-10 w-10 ${disableMenu ? 'rotate-90' : 'rotate-90-inverse'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="3" y1="12" x2="21" y2="12" />
                     <line x1="3" y1="6" x2="21" y2="6" />
