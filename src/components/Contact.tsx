@@ -2,7 +2,7 @@ import { FC } from "react";
 
 const Contact: FC = () => {
     return (
-        <section id="Contacto" className="h-screen">
+        <section id="Contacto">
             <h1>Contacto</h1>
         </section>
     );
