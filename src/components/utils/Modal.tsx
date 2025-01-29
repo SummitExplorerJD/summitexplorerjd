@@ -46,7 +46,7 @@ const Modal: FC<ModalProps> = ({ children, isOpen, onClose, id }) => {
                     &times;
                 </button>
                 <br />
-                <hr className="m-10 opacity-25 border-1"/>
+                <hr className="mx-10 my-6 opacity-25 border-1"/>
                 {children}
             </div>
         </div>
