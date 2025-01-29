@@ -13,17 +13,16 @@ type Props = {
     timeInterval?: number;
 }
 
-const Carousel: FC<Props> = (props) => {
+const Carousel: FC<Props> = ({slideImgLst, classNames, timeInterval}) => {
 
     const carouselRef = useRef<HTMLDivElement>(null);
     const [slideLst, setSlideLst] = useState<JSX.Element[]>([]);
 
     useEffect(() => {
         const slides: JSX.Element[] = [];
-        const { slideImgLst, timeInterval } = props;
         slideImgLst.forEach((img, index) => {
             slides.push(
-                <div key={index * 1} className={"carousel-item w-full flex-shrink-0 " + props.classNames?.carouselItem}>
+                <div key={index * 1} className={"carousel-item w-full flex-shrink-0 " + classNames?.carouselItem}>
                     <img src={img} className="w-full h-full object-cover" alt={`Slide ${index + 1}`} />
                 </div>
             );
@@ -43,14 +42,14 @@ const Carousel: FC<Props> = (props) => {
     }
 
     return (
-        <div className={"relative w-full h-full overflow-hidden " + props.classNames?.carousel}>
+        <div className={"relative w-full h-full overflow-hidden " + classNames?.carousel}>
             <div ref={carouselRef} className="carousel flex transition-transform duration-500 ease-in-out">
                 {slideLst}
             </div>
-            <button className={'absolute top-1/2 left-0 transform -translate-y-1/2 ' + (props.classNames?.buttonL || "bg-gray-800 text-white p-2 cursor-pointer")} onClick={() => slide(-1)}>
+            <button className={'absolute top-1/2 left-0 transform -translate-y-1/2 ' + (classNames?.buttonL || "bg-gray-800 text-white p-2 cursor-pointer")} onClick={() => slide(-1)}>
                 &#10094;
             </button>
-            <button className={'absolute top-1/2 right-0 transform -translate-y-1/2 ' + (props.classNames?.buttonR || "bg-gray-800 text-white p-2 cursor-pointer")} onClick={() => slide(1)}>
+            <button className={'absolute top-1/2 right-0 transform -translate-y-1/2 ' + (classNames?.buttonR || "bg-gray-800 text-white p-2 cursor-pointer")} onClick={() => slide(1)}>
                 &#10095;
             </button>
         </div>

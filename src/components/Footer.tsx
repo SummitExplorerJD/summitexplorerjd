@@ -1,8 +1,35 @@
-import { PureComponent } from 'react';
+import { FC, useEffect, useState } from 'react';
+import Modal from './utils/Modal';
+import PrivacyPolicy from './PrivacyPolicy';
+import TermsOfService from './TermsOfService';
 
-class Footer extends PureComponent {
-    render() {
-        return (
+type IdType = 'privacy-policy' | 'terms-of-service' | string;
+
+const Footer: FC = () => {
+
+    const [isModalOpenPrivacy, setIsModalOpenPrivacy] = useState(false);
+
+    const openModalPrivacy = () => setIsModalOpenPrivacy(true);
+    const closeModalPrivacy = () => setIsModalOpenPrivacy(false);
+
+    const [isModalOpenTerms, setIsModalOpenTerms] = useState(false);
+
+    const openModalTerms = () => setIsModalOpenTerms(true);
+    const closeModalTerms = () => setIsModalOpenTerms(false);
+
+    useEffect(() => {
+        const url = new URL(window.location.href);
+        const id = url.hash.slice(1) as IdType;
+        if (id === 'privacy-policy') {
+            openModalPrivacy();
+        } else if (id === 'terms-of-service') {
+            openModalTerms();
+        }
+    }, []);
+
+
+    return (
+        <>
             <footer className="bg-[var(--accent-2-smjd)] p-5 text-center text-white flex flex-col">
                 <div className='flex flex-col md:flex-row md:mx-10 mx-4 items-center justify-around'>
                     <div className='text-center md:text-left flex flex-col'>
@@ -46,11 +73,17 @@ class Footer extends PureComponent {
                 </div>
                 <p>&copy; 2025, SummitExplorer JD. Todos los derechos reservados.</p>
                 <p>
-                    <a href="#privacy-policy" className="text-[var(--primary-smjd)] hover:underline">Política de Privacidad</a> | <a href="#terms-of-service" className="text-[var(--primary-smjd)] hover:underline"> Términos de Servicio</a>
+                    <a href="#privacy-policy" onClick={openModalPrivacy} className="text-[var(--primary-smjd)] hover:underline">Política de Privacidad</a> | <a href="#terms-of-service" onClick={openModalTerms} className="text-[var(--primary-smjd)] hover:underline"> Términos de Servicio</a>
                 </p>
             </footer>
-        );
-    }
-}
+            <Modal isOpen={isModalOpenPrivacy} onClose={closeModalPrivacy} id='privacy-policy'>
+                <PrivacyPolicy></PrivacyPolicy>
+            </Modal>
+            <Modal isOpen={isModalOpenTerms} onClose={closeModalTerms} id='terms-of-service'>
+                <TermsOfService></TermsOfService>
+            </Modal>
+        </>
+    )
+};
 
 export default Footer;
