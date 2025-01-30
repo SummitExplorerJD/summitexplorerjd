@@ -40,7 +40,7 @@ const Modal: FC<ModalProps> = ({ children, isOpen, onClose, id }) => {
     };
 
     return (
-        <div id={id} className="modal" onClick={handleBackgroundClick}>
+        <div id={id} className="modal shadow-xl shadow-white" onClick={handleBackgroundClick}>
             <div className="modal-content">
                 <button className="modal-close border-1 rounded-full bg-transparent text-2xl w-10 h-10" onClick={onClose}>
                     &times;
