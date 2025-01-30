@@ -11,7 +11,7 @@ const Home: FC = () => {
                 </div>
                 <div className="pt-5 text-justify">
                     <p>
-                    Soy Julio David Castro Martín, ingeniero de software, escalador y apasionado por la ciencia. Cada proyecto, cada montaña y cada desafío son una oportunidad para ir más allá.<br />En SummitExplorer JD combinamos tecnología y aventura, inspirando a otros a alcanzar nuevas alturas. Únete a esta expedición y descubre tu verdadero potencial.
+                        Soy Julio Castro, ingeniero de software, escalador y apasionado por la ciencia. Cada proyecto, cada montaña y cada desafío son una oportunidad para ir más allá.<br />En SummitExplorer JD combinamos tecnología y aventura, inspirando a otros a alcanzar nuevas alturas. Únete a esta expedición y descubre tu verdadero potencial.
                     </p>
                 </div>
             </article>
