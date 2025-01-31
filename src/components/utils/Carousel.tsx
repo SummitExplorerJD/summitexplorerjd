@@ -4,7 +4,7 @@ import './Carousel.css';
 type Props = {
     //children?: React.ReactNode;
     slideImgLst: string[];
-    slideContentLst?: string[];
+    slideContentLst?: any[];
     classNames?: {
         carousel?: string;
         carouselItem?: string;
@@ -34,7 +34,7 @@ const Carousel: FC<Props> = ({slideImgLst, classNames, timeInterval, slideConten
             );*/
             slides.push(
                 <div key={index * 1} className={"carousel-item w-full flex-shrink-0 " + classNames?.carouselItem}>
-                    <div className="flex flex-col h-full w-full">
+                    <div className="flex flex-col justify-center h-full w-full">
                         <img src={img} className="w-full h-full object-cover" alt={`Slide ${index + 1}`} />
                         <div className={"w-full p-4 bg-black bg-opacity-50 text-white " + classNames?.content}>
                             {slideContentLst? slideContentLst[index] : '' + index}
