@@ -37,7 +37,7 @@ const Carousel: FC<Props> = ({slideImgLst, classNames, timeInterval, slideConten
                     <div className="flex flex-col justify-center h-full w-full">
                         <img src={img} className="w-full h-full object-cover" alt={`Slide ${index + 1}`} />
                         <div className={"w-full p-4 bg-black bg-opacity-50 text-white " + classNames?.content}>
-                            {slideContentLst? slideContentLst[index] : '' + index}
+                            {slideContentLst? slideContentLst[index] : null}
                         </div>
                     </div>
                 </div>
