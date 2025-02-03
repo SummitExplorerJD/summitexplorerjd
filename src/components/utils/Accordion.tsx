@@ -8,10 +8,11 @@ interface AccordionProps {
         content?: string;
     },
     children?: React.ReactNode;
+    initOpen?: boolean;
 }
 
-const Accordion: FC<AccordionProps> = ({ title, children, classNames }) => {
-    const [isOpen, setIsOpen] = useState(false);
+const Accordion: FC<AccordionProps> = ({ title, children, classNames, initOpen = false }) => {
+    const [isOpen, setIsOpen] = useState(initOpen);
     const contentRef = useRef<HTMLDivElement>(null);
 
     const toggleAccordion = () => {
