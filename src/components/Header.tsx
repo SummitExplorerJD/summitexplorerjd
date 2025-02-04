@@ -10,6 +10,9 @@ class Header extends PureComponent {
                 </div>
                 <div>
                     <h1 className="text-2xl md:text-4xl text-[var(--neutral-1-smjd)]">SummitExplorer JD</h1>
+                    <span className="text-sm font-normal text-[var(--neutral-1-smjd)]">
+                        Desarrollo de software y Alpinismo
+                    </span>
                 </div>
                 <div>
                     <button type="button" className="inline-block rounded-full border border-[var(--neutral-1-smjd)] bg-[var(--neutral-1-smjd)] p-3 text-[var(--accent-2-smjd)] hover:bg-[var(--accent-2-smjd)] hover:text-[var(--neutral-2-smjd)] focus:outline-none focus:ring active:text-indigo-500">
@@ -28,4 +31,4 @@ class Header extends PureComponent {
     }
 }
 
-export default Header; 
+export default Header;

@@ -25,27 +25,27 @@
 }
 
 .rotate-90 {
-    transform: rotate(90deg);
-    transition: transform 0.3s ease-in-out;
+    -o-transform: rotate(90deg);
+    -o-transition: transform 0.3s ease-in-out;
     -webkit-transition: transform 0.3s ease-in-out;
     -moz-transition: transform 0.3s ease-in-out;
     -ms-transition: transform 0.3s ease-in-out;
-    -o-transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .rotate-90-inverse {
-    transform: rotate(-90deg);
-    transition: transform 0.3s ease-in-out;
+    -o-transform: rotate(-90deg);
+    -o-transition: transform 0.3s ease-in-out;
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
     -webkit-transition: transform 0.3s ease-in-out;
     -moz-transition: transform 0.3s ease-in-out;
     -ms-transition: transform 0.3s ease-in-out;
-    -o-transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
 }

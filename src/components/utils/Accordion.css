@@ -1,6 +1,8 @@
 .accordion {
   border: 1px solid #e2e8f0; /* Tailwind color: border-gray-300 */
   border-radius: 0.375rem; /* Tailwind class: rounded-md */
+  margin-left: 1em;
+  margin-right: 1em;
   overflow: hidden;
   margin-bottom: 1rem; /* Tailwind class: mb-4 */
 }
