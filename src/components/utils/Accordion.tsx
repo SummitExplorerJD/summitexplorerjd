@@ -8,16 +8,12 @@ interface AccordionProps {
         content?: string;
     },
     children?: React.ReactNode;
-    initOpen?: boolean;
+    isOpen?: boolean;
+    onToggle: () => void;
 }
 
-const Accordion: FC<AccordionProps> = ({ title, children, classNames, initOpen = false }) => {
-    const [isOpen, setIsOpen] = useState(initOpen);
+const Accordion: FC<AccordionProps> = ({ title, children, classNames, isOpen = false, onToggle }) => {
     const contentRef = useRef<HTMLDivElement>(null);
-
-    const toggleAccordion = () => {
-        setIsOpen(!isOpen);
-    };
 
     useEffect(() => {
         if (contentRef.current) {
@@ -31,7 +27,7 @@ const Accordion: FC<AccordionProps> = ({ title, children, classNames, initOpen =
 
     return (
         <div className="accordion">
-            <button className={"accordion-header " + classNames?.header} onClick={toggleAccordion}>
+            <button className={"accordion-header " + classNames?.header} onClick={onToggle}>
                 {title}
             </button>
             <div ref={contentRef} className={"accordion-content " + (isOpen ? 'open ' : '') + classNames?.content}>
