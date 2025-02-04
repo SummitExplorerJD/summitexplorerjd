@@ -1,4 +1,4 @@
-import { FC, useState, useRef, useEffect } from "react";
+import { FC, useRef, useEffect } from "react";
 import './Accordion.css';
 
 interface AccordionProps {
