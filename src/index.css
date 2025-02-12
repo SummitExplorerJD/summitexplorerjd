@@ -23,8 +23,8 @@
 	}
 
 	h1 {
-		font-weight: bold;
 		color: var(--primary-smjd);
+		@apply font-bold;
 	}
 
 	h2 {
