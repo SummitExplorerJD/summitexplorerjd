@@ -50,55 +50,55 @@ const Wheel: React.FC<WheelProps> = ({ items }) => {
     setIsDragging(false);
   };
 
-  useEffect(() => {
-    const handleScroll = (event: WheelEvent) => {
-      if (!isAnimating && wheelRef.current) {
+  const handleScroll = (event: WheelEvent) => {
+    if (!isAnimating && !isDragging && wheelRef.current) {
+      event.preventDefault();
+      setIsAnimating(true);
+      lastScrollPosition.current = window.scrollY;
+
+      setActiveIndex((prevIndex) => {
+        const newIndex = (prevIndex + (event.deltaY > 0 ? 1 : -1) + items.length) % items.length;
+        return newIndex;
+      });
+
+      setTimeout(() => {
+        setIsAnimating(false);
+        window.scrollTo({
+          top: lastScrollPosition.current + (event.deltaY > 0 ? 100 : -100),
+          behavior: 'smooth'
+        });
+      }, 300);
+    }
+  };
+
+  const handleTouchStart = (event: TouchEvent) => {
+    touchStartY.current = event.touches[0].clientY;
+  };
+
+  const handleTouchMove = (event: TouchEvent) => {
+    if (!isAnimating && wheelRef.current) {
+      const touchEndY = event.touches[0].clientY;
+      const deltaY = touchStartY.current - touchEndY;
+
+      if (Math.abs(deltaY) > 20) { // umbral mínimo para detectar el swipe
         event.preventDefault();
         setIsAnimating(true);
-        lastScrollPosition.current = window.scrollY;
 
         setActiveIndex((prevIndex) => {
-          const newIndex = (prevIndex + (event.deltaY > 0 ? 1 : -1) + items.length) % items.length;
+          const newIndex = (prevIndex + (deltaY > 0 ? 1 : -1) + items.length) % items.length;
           return newIndex;
         });
 
         setTimeout(() => {
           setIsAnimating(false);
-          window.scrollTo({
-            top: lastScrollPosition.current + (event.deltaY > 0 ? 100 : -100),
-            behavior: 'smooth'
-          });
-        }, 300); // Reducido de 500ms a 300ms para mayor fluidez
+        }, 300);
+
+        touchStartY.current = touchEndY;
       }
-    };
+    }
+  };
 
-    const handleTouchStart = (event: TouchEvent) => {
-      touchStartY.current = event.touches[0].clientY;
-    };
-
-    const handleTouchMove = (event: TouchEvent) => {
-      if (!isAnimating && wheelRef.current) {
-        const touchEndY = event.touches[0].clientY;
-        const deltaY = touchStartY.current - touchEndY;
-
-        if (Math.abs(deltaY) > 20) { // umbral mínimo para detectar el swipe
-          event.preventDefault();
-          setIsAnimating(true);
-
-          setActiveIndex((prevIndex) => {
-            const newIndex = (prevIndex + (deltaY > 0 ? 1 : -1) + items.length) % items.length;
-            return newIndex;
-          });
-
-          setTimeout(() => {
-            setIsAnimating(false);
-          }, 300);
-
-          touchStartY.current = touchEndY;
-        }
-      }
-    };
-
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
