@@ -5,12 +5,15 @@ import CSharp from '~/assets/c-sharp-c-seeklogo.svg';
 import DotNetCore from '~/assets/net-core-seeklogo.svg';
 import NodeJS from '~/assets/node-js-seeklogo.svg';
 import ReactJS from '~/assets/react.svg';
+import Python from '~/assets/python-seeklogo.svg';
+import Rust from '~/assets/rust-seeklogo.svg';
 
 const Skills: FC = () => {
     return (
         <section id='Habilidades' className="py-12 bg-gray-100">
             <div className="container mx-auto">
                 <h1 className="text-3xl font-semibold text-gray-800 text-center mb-8">Habilidades</h1>
+                <p className="text-lg text-gray-600 text-center mb-8">Tecnologías con las que trabajo</p>
                 <Masonry columns={3} gap={4}>
                     <MasonryItem>
                         <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
@@ -42,32 +45,16 @@ const Skills: FC = () => {
                     </MasonryItem>
                     <MasonryItem>
                         <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                            Content 5
+                            <Popover message="Python">
+                                <img src={Python} alt="react" className="h-20" />
+                            </Popover>
                         </div>
                     </MasonryItem>
                     <MasonryItem>
                         <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                            Content 6
-                        </div>
-                    </MasonryItem>
-                    <MasonryItem>
-                        <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                            Content 7
-                        </div>
-                    </MasonryItem>
-                    <MasonryItem>
-                        <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                            Content 8
-                        </div>
-                    </MasonryItem>
-                    <MasonryItem>
-                        <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                            Content 9
-                        </div>
-                    </MasonryItem>
-                    <MasonryItem>
-                        <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                            Content 0
+                            <Popover message="Rust lang">
+                                <img src={Rust} alt="react" className="h-20" />
+                            </Popover>
                         </div>
                     </MasonryItem>
                 </Masonry>
