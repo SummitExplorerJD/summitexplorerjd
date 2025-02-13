@@ -1,36 +1,41 @@
 import { FC, ReactNode } from "react";
-import './Masonry.css';
 
-type Props = {
-  images: string[];
+interface MasonryProps {
+  children: ReactNode;
+  columns?: number;
+  gap?: number;
 }
 
-const MasonryImg: FC<Props> = ({ images }) => {
+const Masonry: FC<MasonryProps> = ({ children, columns = 3, gap = 4 }) => {
+  const masonryStyle = {
+    display: 'grid',
+    gridTemplateColumns: `repeat(${columns}, 1fr)`,
+    gap: `${gap}px`,
+    gridAutoRows: 'minmax(100px, auto)',
+  };
+
   return (
-    <div className="masonry-img">
-      {images.map((src, index) => (
-        <div key={index} className="masonry-img-item">
-          <img src={src} alt={`masonry-img-item-${index}`} />
-        </div>
-      ))}
+    <div style={masonryStyle}>
+      {children}
     </div>
   );
 };
 
-type PropsM = {
-  contents: ReactNode[];
+interface MasonryItemProps {
+  children: ReactNode;
+  span?: number;
 }
 
-const MasonryContents: FC<PropsM> = ({ contents }) => {
+const MasonryItem: FC<MasonryItemProps> = ({ children, span = 1 }) => {
+  const itemStyle = {
+    gridColumn: `span ${span}`,
+  };
+
   return (
-    <div className="masonry-content">
-      {contents.map((content, index) => (
-        <div key={index} className="masonry-content-item">
-          {content}
-        </div>
-      ))}
+    <div style={itemStyle}>
+      {children}
     </div>
   );
 };
 
-export { MasonryImg, MasonryContents };
+export { Masonry, MasonryItem };
