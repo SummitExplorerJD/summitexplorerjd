@@ -3,21 +3,39 @@ import './Wheel.css';
 
 interface WheelProps {
   items: Array<React.ReactNode>;
+  autoRotateInterval?: number; // tiempo en ms entre rotaciones
 }
 
-const Wheel: React.FC<WheelProps> = ({ items }) => {
+const Wheel: React.FC<WheelProps> = ({ items, autoRotateInterval = 3000 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   const wheelRef = useRef<HTMLDivElement>(null);
   const lastScrollPosition = useRef<number>(0);
   const touchStartY = useRef<number>(0);
   const dragStartX = useRef<number>(0);
   const dragStartY = useRef<number>(0);
 
+  // Auto rotation effect
+  useEffect(() => {
+    if (!isPaused && !isDragging && !isAnimating) {
+      const timer = setInterval(() => {
+        setActiveIndex((prevIndex) => (prevIndex + 1) % items.length);
+      }, autoRotateInterval);
+
+      return () => clearInterval(timer);
+    }
+  }, [isPaused, isDragging, isAnimating, items.length, autoRotateInterval]);
+
+  // Pause rotation on hover
+  const handleMouseEnter = () => setIsPaused(true);
+  const handleMouseLeave = () => setIsPaused(false);
+
   const handleMouseDown = (event: React.MouseEvent) => {
     if (!isAnimating && wheelRef.current) {
       setIsDragging(true);
+      setIsPaused(true); // Pause rotation while dragging
       dragStartX.current = event.clientX;
       dragStartY.current = event.clientY;
     }
@@ -48,6 +66,7 @@ const Wheel: React.FC<WheelProps> = ({ items }) => {
 
   const handleMouseUp = () => {
     setIsDragging(false);
+    setIsPaused(false); // Resume rotation after dragging
   };
 
   const handleScroll = (event: WheelEvent) => {
@@ -138,6 +157,8 @@ const Wheel: React.FC<WheelProps> = ({ items }) => {
       ref={wheelRef}
       className={`wheel ${isDragging ? 'dragging' : ''}`}
       onMouseDown={handleMouseDown}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {items.map((item, index) => {
         const angle = (index - activeIndex) * (360 / items.length);
