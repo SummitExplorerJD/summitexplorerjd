@@ -10,8 +10,40 @@ const AboutMe: FC = () => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
-    const slideImgLst: string[] = ['https://via.placeholder.com/800x400', 'https://via.placeholder.com/800x400', 'https://via.placeholder.com/800x400'];
+    // Imágenes reales en lugar de placeholders
+    const slideImgLst: any[] = [
+        '/public/1000192510.jpg',
+        '/public/1000192628.jpg',
+        '/public/1000192510.jpg',
+        '/public/1000192628.jpg',
+        '/public/1000192510.jpg'
+    ];
 
+    // Contenido para cada slide del carousel
+    const carouselContentLst = [
+        <div className="text-center">
+            <h3 className="text-xl font-bold mb-2">Desarrollo e Innovación</h3>
+            <p>Creando soluciones tecnológicas que transforman vidas</p>
+        </div>,
+        <div className="text-center">
+            <h3 className="text-xl font-bold mb-2">Explorando Alturas</h3>
+            <p>La montaña como escuela de vida y superación</p>
+        </div>,
+        <div className="text-center">
+            <h3 className="text-xl font-bold mb-2">Pasión por la Ciencia</h3>
+            <p>Combinando curiosidad científica y aprendizaje constante</p>
+        </div>,
+        <div className="text-center">
+            <h3 className="text-xl font-bold mb-2">Misión y Visión</h3>
+            <p>Inspirando a otros a alcanzar sus propias cumbres</p>
+        </div>,
+        <div className="text-center">
+            <h3 className="text-xl font-bold mb-2">Naturaleza y Tecnología</h3>
+            <p>Construyendo puentes entre mundos aparentemente distantes</p>
+        </div>
+    ];
+
+    // Contenido para los acordeones
     const slideContentLst: { title: string, content: JSX.Element }[] = [
     {
         title: 'Conoceme',
@@ -42,19 +74,63 @@ const AboutMe: FC = () => {
     }
     ];
 
+    // Contenido adicional para el carousel
+    const additionalContent = (
+        <div className="p-4 bg-[var(--neutral-1o20-smjd)] rounded-lg shadow-md text-center">
+            <h3 className="text-xl font-bold mb-3">Mi Historia Visual</h3>
+            <p className="mb-3">Estas imágenes representan los pilares fundamentales de mi vida profesional y personal: tecnología, aventura y ciencia.</p>
+            <p className="text-sm italic">Desliza o usa los botones para explorar más...</p>
+        </div>
+    );
+
     return (
         <section id='SobreMi' className="flex flex-col bg-[var(--neutral-1o40-smjd)] text-justify items-center p-5 mt-0 md:mt-20 text-[var(--primary-smjd)]">
-            <article>
-                <h2 className="text-[var(--primary-smjd)] text-xl">Acerca de Mi</h2>
+            <article className="mb-8">
+                <h2 className="text-[var(--primary-smjd)] text-2xl font-bold text-center">Acerca de Mi</h2>
             </article>
-            <article className="flex flex-row flex-wrap justify-center">
-                {slideContentLst.map((content, index) => (<section key={index * 1} className="basis-1/1 md:basis-1/2"><Accordion key={index * 1} title={content.title} isOpen={openIndex === index} onToggle={() => handleToggle(index)}  classNames={{ header: 'w-full', content: 'flex flex-row flex-wrap justify-center' }}>{content.content}</Accordion></section>))}
+            
+            <article className="flex flex-row flex-wrap justify-center mb-12 w-full">
+                {slideContentLst.map((content, index) => (
+                    <section key={index * 1} className="basis-full md:basis-1/2">
+                        <Accordion 
+                            key={index * 1} 
+                            title={content.title} 
+                            isOpen={openIndex === index} 
+                            onToggle={() => handleToggle(index)}  
+                            classNames={{ 
+                                header: 'w-full', 
+                                content: 'flex flex-row flex-wrap justify-center' 
+                            }}
+                        >
+                            {content.content}
+                        </Accordion>
+                    </section>
+                ))}
             </article>
-            <article className="h-[70vh]">
-                <Carousel timeInterval={3000} slideImgLst={slideImgLst} classNames={{ content: 'hidden' }}></Carousel>
+            
+            <article className="w-full max-w-4xl mb-12">
+                <Carousel 
+                    timeInterval={4000} 
+                    slideImgLst={slideImgLst}
+                    slideContentLst={carouselContentLst}
+                    content={additionalContent}
+                    contentPosition="bottom"
+                    adaptToImages={true}
+                    showIndicators={true}
+                    pauseOnHover={true}
+                    classNames={{ 
+                        carousel: "rounded-lg shadow-xl overflow-hidden h-[500px]",
+                        content: "bg-opacity-70",
+                        contentWrapper: "bg-[var(--neutral-1o10-smjd)] p-4 rounded-lg"
+                    }}
+                />
             </article>
+            
             <article className="flex flex-row flex-wrap justify-center text-center">
-                <p className="m-4 md:w-2/3 w-full">Cada proyecto es una nueva expedición, cada interacción es una oportunidad de conectar. Te invito a formar parte de este viaje, donde juntos podemos alcanzar cumbres extraordinarias.</p>
+                <p className="m-4 md:w-2/3 w-full text-lg">
+                    Cada proyecto es una nueva expedición, cada interacción es una oportunidad de conectar. 
+                    Te invito a formar parte de este viaje, donde juntos podemos alcanzar cumbres extraordinarias.
+                </p>
             </article>
         </section>
     );

@@ -1,53 +1,74 @@
 import { FC } from "react";
-import Wheel from "./utils/Wheel";
+import CardCarousel from "./utils/CardCarousel";
 
 const Services: FC = () => {
-    const serviceItems = [
-        <div className="flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 w-64">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Desarrollo Web</h3>
-            <p className="text-center text-gray-600">Sitios web modernos y responsivos</p>
-        </div>,
-        <div className="flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 w-64">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Aplicaciones Móviles</h3>
-            <p className="text-center text-gray-600">Apps nativas y multiplataforma</p>
-        </div>,
-        <div className="flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 w-64">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Diseño UI/UX</h3>
-            <p className="text-center text-gray-600">Interfaces intuitivas y atractivas</p>
-        </div>,
-        <div className="flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 w-64">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Consultoría</h3>
-            <p className="text-center text-gray-600">Asesoría técnica especializada</p>
-        </div>,
-        <div className="flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 w-64">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Senderismo Guiado</h3>
-            <p className="text-center text-gray-600">Rutas personalizadas y seguras</p>
-        </div>,
-        <div className="flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 w-64">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Escalada en Roca</h3>
-            <p className="text-center text-gray-600">Aventuras supervisadas para todos los niveles</p>
-        </div>,
-        <div className="flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 w-64">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Expediciones Alpinas</h3>
-            <p className="text-center text-gray-600">Ascensos seguros a alta montaña</p>
-        </div>,
-        <div className="flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 w-64">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Cursos de Montañismo</h3>
-            <p className="text-center text-gray-600">Aprende técnicas y seguridad</p>
-        </div>,
-        <div className="flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 w-64">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Campamentos Base</h3>
-            <p className="text-center text-gray-600">Experiencias inmersivas en la naturaleza</p>
-        </div>
+    // Reformateamos los datos para CardCarousel
+    const servicios = [
+        {
+            id: 1,
+            titulo: "Desarrollo Web",
+            descripcion: "Sitios web modernos y responsivos",
+            imagen: "/img/desarrollo-web.jpg"
+        },
+        {
+            id: 2,
+            titulo: "Aplicaciones Móviles",
+            descripcion: "Apps nativas y multiplataforma",
+            imagen: "/img/apps-moviles.jpg"
+        },
+        {
+            id: 3,
+            titulo: "Diseño UI/UX",
+            descripcion: "Interfaces intuitivas y atractivas",
+            imagen: "/img/ui-ux.jpg"
+        },
+        {
+            id: 4,
+            titulo: "Consultoría",
+            descripcion: "Asesoría técnica especializada",
+            imagen: "/img/consultoria.jpg"
+        },
+        {
+            id: 5,
+            titulo: "Senderismo Guiado",
+            descripcion: "Rutas personalizadas y seguras",
+            imagen: "/img/senderismo.jpg"
+        },
+        {
+            id: 6,
+            titulo: "Escalada en Roca",
+            descripcion: "Aventuras supervisadas para todos los niveles",
+            imagen: "/img/escalada.jpg"
+        },
+        {
+            id: 7,
+            titulo: "Expediciones Alpinas",
+            descripcion: "Ascensos seguros a alta montaña",
+            imagen: "/img/expediciones.jpg"
+        },
+        {
+            id: 8,
+            titulo: "Cursos de Montañismo",
+            descripcion: "Aprende técnicas y seguridad",
+            imagen: "/img/cursos.jpg"
+        },
+        {
+            id: 9,
+            titulo: "Campamentos Base",
+            descripcion: "Experiencias inmersivas en la naturaleza",
+            imagen: "/img/campamentos.jpg"
+        }
     ];
 
     return (
-        <section id='Servicios' className="py-5 flex flex-col items-center justify-center bg-[var(--accent-1o-smjd)] from-blue-50 to-white">
-            <h1 className="text-4xl font-bold mb-8 text-white">Servicios</h1>
-            <div className="relative w-full h-[60vh]">
-                <div className="absolute left-[-50%] md:left-1/3">
-                    <Wheel items={serviceItems} />
-                </div>
+        <section id='Servicios' className="py-16 flex flex-col items-center justify-center bg-[var(--accent-1o-smjd)]">
+            <h1 className="text-4xl font-bold mb-12 text-white">Servicios</h1>
+            <div className="w-full max-w-7xl">
+                <CardCarousel 
+                    tarjetas={servicios} 
+                    intervaloAutomatico={4000} 
+                    mostrarPorPagina={window.innerWidth < 768 ? 1 : 3} 
+                />
             </div>
         </section>
     );
