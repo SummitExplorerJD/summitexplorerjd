@@ -72,8 +72,8 @@ const Footer: FC = () => {
                     <hr className='border-2' />
                 </div>
                 <p>&copy; 2025, SummitExplorer JD. Todos los derechos reservados.</p>
-                <p>
-                    <a href="#privacy-policy" onClick={openModalPrivacy} className="text-[var(--primary-smjd)] hover:underline">Política de Privacidad</a> | <a href="#terms-of-service" onClick={openModalTerms} className="text-[var(--primary-smjd)] hover:underline"> Términos de Servicio</a>
+                <p className='text-[var(--neutral-2-smjd)]'>
+                    <a href="#privacy-policy" onClick={openModalPrivacy} className="hover:underline">Política de Privacidad</a> | <a href="#terms-of-service" onClick={openModalTerms} className="hover:underline"> Términos de Servicio</a>
                 </p>
             </footer>
             <Modal isOpen={isModalOpenPrivacy} onClose={closeModalPrivacy} id='privacy-policy'>
