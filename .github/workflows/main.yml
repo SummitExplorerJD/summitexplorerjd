@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -28,16 +30,9 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to new branch
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git switch --orphan deploy
-          git reset --hard
-          rm -rf $(ls -a | grep -v "^\.\.$" | grep -v "^\.$" | grep -v "^dist$")
-          mv dist/* .
-          rm -rf dist
-          touch .nojekyll
-          git add .
-          git commit -m "Deploying new build"
-          git push --force origin deploy
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: deploy
+          clean: true
