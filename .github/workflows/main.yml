@@ -28,10 +28,11 @@ jobs:
         run: |
           git config --global user.name "julyo"
           git config --global user.email "julito.1998@hotmail.es"
-          git checkout --orphan deploy
-          git rm -rf .
+          git switch --orphan deploy
+          git reset --hard
           mv dist/* .
           rm -rf dist
           git add .
           git commit -m "Deploying new build"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git push --force origin deploy
