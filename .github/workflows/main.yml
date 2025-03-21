@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,13 +29,14 @@ jobs:
 
       - name: Deploy to new branch
         run: |
-          git config --global user.name "julyo"
-          git config --global user.email "julito.1998@hotmail.es"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git switch --orphan deploy
           git reset --hard
+          rm -rf $(ls -a | grep -v "^\.\.$" | grep -v "^\.$" | grep -v "^dist$")
           mv dist/* .
           rm -rf dist
+          touch .nojekyll
           git add .
           git commit -m "Deploying new build"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git push --force origin deploy
