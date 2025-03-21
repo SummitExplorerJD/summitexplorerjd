@@ -1,0 +1,43 @@
+.wheel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 600px;  /* Aumentado de 300px */
+  height: 600px; /* Aumentado de 300px */
+  border-radius: 50%;
+  overflow: hidden;
+  touch-action: none; /* Previene el scroll nativo en móviles */
+  cursor: grab; /* Cursor que indica que se puede arrastrar */
+}
+
+.wheel.dragging {
+  cursor: grabbing; /* Cursor cuando se está arrastrando */
+}
+
+.wheel-item {
+  position: absolute;
+  width: 200px;    /* Aumentado de 100px */
+  height: 200px;   /* Aumentado de 100px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.9;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity; /* Optimiza las animaciones */
+  -webkit-tap-highlight-color: transparent; /* Elimina el highlight en móviles */
+  user-select: none; /* Previene la selección de texto */
+}
+
+.wheel-item.active {
+  opacity: 1;
+  z-index: 100;
+  /*background-color: rgba(255, 255, 255, 1); /* Fondo sólido para el elemento activo */
+  /*box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Sombra suave */
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .wheel {
+    cursor: default;
+  }
+}

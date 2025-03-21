@@ -1,0 +1,26 @@
+.masonry-img {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.masonry-img-item {
+    break-inside: avoid;
+}
+
+.masonry-img-item img {
+    width: 100%;
+    display: block;
+}
+
+.masonry-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Tailwind class: gap-4 */
+  }
+  
+  .masonry-content-item {
+    flex: 1 1 calc(33.333% - 1rem); /* Adjust the percentage based on the number of columns */
+    box-sizing: border-box;
+    margin-bottom: 1rem; /* Tailwind class: mb-4 */
+  }

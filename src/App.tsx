@@ -1,33 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { DevAlert } from '~/components/utils/DevAlert'
+import AsideMenu from '~/components/AsideMenu'
+import Header from '~/components/Header'
+import Footer from '~/components/Footer'
+import Home from '~/components/Home'
+import AboutMe from '~/components/AboutMe'
+import Services from '~/components/Services'
+import Skills from '~/components/Skills'
+import Projects from '~/components/Projects'
+import Contact from '~/components/Contact'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header></Header>
+      <main className='bg-[url(/1000192510.jpg)] md:bg-[url(/1000192628.jpg)] bg-cover bg-center bg-fixed bg-no-repeat'>
+        <Home></Home>
+        <AboutMe></AboutMe>
+        <Services></Services>
+        <Skills></Skills>
+        <Projects></Projects>
+        <Contact></Contact>
+      </main>
+      <AsideMenu></AsideMenu>
+      <Footer></Footer>
+      {import.meta.env.DEV ? <DevAlert></DevAlert> : null}
     </>
   )
 }

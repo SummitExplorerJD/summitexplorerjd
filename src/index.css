@@ -1,68 +1,52 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* https://fonts.google.com/specimen/Nunito+Sans */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@import "tailwindcss";
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@theme {
+	--primary-smjd: #005873;
+	--accent-1-smjd: #007A99;
+	--accent-1o-smjd: #007A99EE;
+	--accent-2-smjd: #003D4E;
+	--accent-2o85-smjd: #003D4EAA;
+	--neutral-1-smjd: #E0F4F8;
+	--neutral-1o40-smjd: #E0F4F8F0;
+	--neutral-2-smjd: #A8CBD1;
+	--complement-1-smjd: #9F6768;
+	--complement-2-smjd: #F3A712;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+	--font-nunito-sans-msjd: 'Nunito Sans', sans-serif;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+@layer base {
+	body {
+		font-family: var(--font-nunito-sans-msjd);
+	}
+
+	h1 {
+		color: var(--primary-smjd);
+		@apply font-bold;
+	}
+
+	h2 {
+		font-weight: bold;
+		color: whitesmoke;
+	}
+
+	h3 {
+		font-weight: bold;
+	}
+
+	h4 {
+		font-weight: bold;
+		color: var(--neutral-2-smjd);
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+@layer components {
+	
 }
