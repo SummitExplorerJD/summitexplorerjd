@@ -63,7 +63,7 @@ const Carousel: FC<CarouselProps> = ({
         const dimensions: {width: number, height: number}[] = [];
         
         const preloadImages = slideImgLst.map((src, index) => {
-            return new Promise<void>((resolve, reject) => {
+            return new Promise<void>((resolve) => {
                 const img = new Image();
                 img.src = src;
                 img.onload = () => {
