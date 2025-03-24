@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import Modal from './utils/Modal';
 import PrivacyPolicy from './PrivacyPolicy';
 import TermsOfService from './TermsOfService';
+import { Link } from 'react-router-dom';
 
 type IdType = 'privacy-policy' | 'terms-of-service' | string;
 
@@ -74,6 +75,8 @@ const Footer: FC = () => {
                 <p>&copy; 2025, SummitExplorer JD. Todos los derechos reservados.</p>
                 <p className='text-[var(--neutral-2-smjd)]'>
                     <a href="#privacy-policy" onClick={openModalPrivacy} className="hover:underline">Política de Privacidad</a> | <a href="#terms-of-service" onClick={openModalTerms} className="hover:underline"> Términos de Servicio</a>
+                    <hr />
+                    <Link to='privacy&terms'>privacy&terms</Link>
                 </p>
             </footer>
             <Modal isOpen={isModalOpenPrivacy} onClose={closeModalPrivacy} id='privacy-policy'>
