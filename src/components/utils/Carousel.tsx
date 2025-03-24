@@ -4,15 +4,15 @@ import './Carousel.css';
 export interface CarouselProps {
     slideImgLst: string[];
     slideContentLst?: React.ReactNode[];
-    content?: React.ReactNode; // Nuevo: contenido adicional
-    contentPosition?: 'top' | 'bottom' | 'left' | 'right'; // Posición del contenido
+    content?: React.ReactNode;
+    contentPosition?: 'top' | 'bottom' | 'left' | 'right';
     classNames?: {
         carousel?: string;
         carouselItem?: string;
         buttonL?: string;
         buttonR?: string;
         content?: string;
-        contentWrapper?: string; // Nuevo: clase para el wrapper del contenido
+        contentWrapper?: string;
         indicators?: string;
         indicator?: string;
         activeIndicator?: string;
@@ -20,7 +20,7 @@ export interface CarouselProps {
     timeInterval?: number;
     showIndicators?: boolean;
     pauseOnHover?: boolean;
-    adaptToImages?: boolean; // Nueva opción para adaptarse a imágenes
+    adaptToImages?: boolean;
     loadingIndicator?: React.ReactNode;
     onAllImagesLoaded?: () => void;
 }
@@ -34,117 +34,161 @@ const Carousel: FC<CarouselProps> = ({
     timeInterval = 5000,
     showIndicators = true,
     pauseOnHover = true,
-    adaptToImages = true, // Por defecto, adaptarse a las imágenes
+    adaptToImages = true,
     loadingIndicator,
     onAllImagesLoaded
 }) => {
     const carouselRef = useRef<HTMLDivElement>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const [touchStart, setTouchStart] = useState(0);
-    const [imagesLoaded, setImagesLoaded] = useState(0);
-    const [imagesDimensions, setImagesDimensions] = useState<{ width: number, height: number }[]>([]);
+    const [touchStart, setTouchStart] = useState<number | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [optimalHeight, setOptimalHeight] = useState<number | null>(null);
-    const totalSlides = slideImgLst.length;
+    const [imagesLoaded, setImagesLoaded] = useState(0);
+    const [imageDimensions, setImageDimensions] = useState<{width: number, height: number}[]>([]);
+    const totalSlides = slideImgLst?.length || 0;
 
-    // Manejar transición al cambiar slides
+    // Check if the slideImgLst is valid
     useEffect(() => {
-        if (carouselRef.current) {
-            const width = carouselRef.current.clientWidth;
-            carouselRef.current.scrollTo({ left: currentIndex * width, behavior: 'smooth' });
+        if (!slideImgLst || slideImgLst.length === 0) {
+            console.error("Carousel: slideImgLst is empty or undefined");
+            setIsLoading(false);
         }
-    }, [currentIndex]);
+    }, [slideImgLst]);
 
-    // Autoplay con opción de pausa
+    // Preload images to ensure they're available and get their natural dimensions
     useEffect(() => {
-        if (!timeInterval || isPaused) return;
+        if (!slideImgLst || slideImgLst.length === 0) return;
+        
+        let loadedCount = 0;
+        const dimensions: {width: number, height: number}[] = [];
+        
+        const preloadImages = slideImgLst.map((src, index) => {
+            return new Promise<void>((resolve, reject) => {
+                const img = new Image();
+                img.src = src;
+                img.onload = () => {
+                    loadedCount++;
+                    setImagesLoaded(loadedCount);
+                    
+                    // Store the natural dimensions of the image
+                    dimensions[index] = {
+                        width: img.naturalWidth,
+                        height: img.naturalHeight
+                    };
+                    
+                    if (loadedCount === slideImgLst.length) {
+                        setImageDimensions(dimensions);
+                    }
+                    
+                    resolve();
+                };
+                img.onerror = () => {
+                    console.error(`Failed to load image: ${src}`);
+                    loadedCount++;
+                    setImagesLoaded(loadedCount);
+                    
+                    // Set default dimensions for failed images
+                    dimensions[index] = { width: 300, height: 200 };
+                    
+                    if (loadedCount === slideImgLst.length) {
+                        setImageDimensions(dimensions);
+                    }
+                    
+                    resolve(); // Still resolve to continue loading others
+                };
+            });
+        });
+
+        Promise.all(preloadImages)
+            .then(() => {
+                setIsLoading(false);
+                if (onAllImagesLoaded) onAllImagesLoaded();
+            })
+            .catch(error => {
+                console.error("Error preloading images:", error);
+                setIsLoading(false);
+            });
+    }, [slideImgLst, onAllImagesLoaded]);
+
+    // Calculate current image dimensions based on container width
+    const getCurrentImageHeight = useCallback(() => {
+        if (!carouselRef.current || !adaptToImages || imageDimensions.length === 0 || !imageDimensions[currentIndex]) {
+            return 'auto';
+        }
+        
+        const containerWidth = carouselRef.current.clientWidth;
+        const imgDimensions = imageDimensions[currentIndex];
+        
+        // Calculate proportional height based on container width
+        const aspectRatio = imgDimensions.width / imgDimensions.height;
+        const calculatedHeight = containerWidth / aspectRatio;
+        
+        return `${calculatedHeight}px`;
+    }, [adaptToImages, currentIndex, imageDimensions]);
+
+    // Manual transition control
+    const transitionToSlide = useCallback((index: number) => {
+        if (!carouselRef.current) return;
+        
+        const slideWidth = carouselRef.current.clientWidth;
+        carouselRef.current.scrollTo({
+            left: index * slideWidth,
+            behavior: 'smooth'
+        });
+    }, []);
+
+    // Update slide when currentIndex changes
+    useEffect(() => {
+        transitionToSlide(currentIndex);
+    }, [currentIndex, transitionToSlide]);
+
+    // Autoplay with pause option
+    useEffect(() => {
+        if (!timeInterval || isPaused || isLoading || totalSlides <= 1) return;
 
         const interval = setInterval(() => {
-            slide(1);
+            setCurrentIndex(prev => (prev + 1) % totalSlides);
         }, timeInterval);
 
         return () => clearInterval(interval);
-    }, [timeInterval, isPaused, currentIndex, totalSlides]);
+    }, [timeInterval, isPaused, totalSlides, isLoading]);
 
-    // Función para manejar el cambio de slide - con useCallback para evitar recreaciones innecesarias
+    // Slide navigation
     const slide = useCallback((direction: number) => {
+        if (totalSlides <= 1) return;
+        
         setCurrentIndex(prev => {
             let newIndex = prev + direction;
-
-            // Manejo circular
-            if (newIndex >= totalSlides) {
-                newIndex = 0;
-            } else if (newIndex < 0) {
-                newIndex = totalSlides - 1;
-            }
-
+            // Circular navigation
+            if (newIndex >= totalSlides) newIndex = 0;
+            if (newIndex < 0) newIndex = totalSlides - 1;
             return newIndex;
         });
     }, [totalSlides]);
 
-    // Ir directamente a un slide específico - con useCallback
-    const goToSlide = useCallback((index: number) => {
-        setCurrentIndex(index);
-    }, []);
-
-    // Manejo de eventos táctiles mejorado
+    // Touch event handlers
     const handleTouchStart = (e: React.TouchEvent) => {
         setTouchStart(e.touches[0].clientX);
     };
 
     const handleTouchMove = (e: React.TouchEvent) => {
-        if (!touchStart) return;
-
+        if (touchStart === null) return;
+        
         const touchEnd = e.touches[0].clientX;
         const diff = touchStart - touchEnd;
 
-        // Si el deslizamiento es significativo (> 50px), cambiamos de slide
+        // Only change slide if swipe is significant
         if (Math.abs(diff) > 50) {
             slide(diff > 0 ? 1 : -1);
-            setTouchStart(0); // Resetear para evitar múltiples cambios
+            setTouchStart(null); // Reset to prevent multiple slides
         }
     };
 
     const handleTouchEnd = () => {
-        setTouchStart(0); // Resetear al terminar el toque
+        setTouchStart(null);
     };
 
-    // Manejar carga de imágenes para obtener dimensiones
-    const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>, index: number) => {
-        const img = e.currentTarget;
-
-        setImagesDimensions(prev => {
-            const newDimensions = [...prev];
-            newDimensions[index] = { width: img.naturalWidth, height: img.naturalHeight };
-            return newDimensions;
-        });
-
-        setImagesLoaded(prev => prev + 1);
-    };
-
-    // Check if all images are loaded
-    useEffect(() => {
-        if (imagesLoaded === totalSlides && totalSlides > 0) {
-            setIsLoading(false);
-            if (onAllImagesLoaded) onAllImagesLoaded();
-
-            // Calculate optimal height if adapting to images
-            if (adaptToImages && imagesDimensions.length === totalSlides) {
-                // Find a good height based on aspect ratios of all images
-                const avgHeight = imagesDimensions.reduce((sum, dim) => {
-                    const aspectRatio = dim.width / dim.height;
-                    // Calculate height based on current container width
-                    const containerWidth = carouselRef.current?.clientWidth ?? window.innerWidth;
-                    return sum + (containerWidth / aspectRatio);
-                }, 0) / imagesDimensions.length;
-
-                setOptimalHeight(avgHeight);
-            }
-        }
-    }, [imagesLoaded, totalSlides, adaptToImages, imagesDimensions, onAllImagesLoaded]);
-
-    // Manejadores de botones dedicados con useCallback
+    // Button handlers
     const handlePrevClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         slide(-1);
@@ -155,7 +199,7 @@ const Carousel: FC<CarouselProps> = ({
         slide(1);
     }, [slide]);
 
-    // Navegación por teclado
+    // Keyboard navigation
     const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
         if (e.key === 'ArrowLeft') {
             slide(-1);
@@ -164,7 +208,7 @@ const Carousel: FC<CarouselProps> = ({
         }
     }, [slide]);
 
-    // Iconos SVG como componentes para mayor claridad
+    // Button icons
     const PrevIcon = () => (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
             <path d="M15.75 19.5L8.25 12l7.5-7.5" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -177,8 +221,8 @@ const Carousel: FC<CarouselProps> = ({
         </svg>
     );
 
-    // Render loading state
-    if (isLoading && adaptToImages) {
+    // Show loading indicator
+    if (isLoading) {
         return (
             <div className="flex justify-center items-center w-full h-40">
                 {loadingIndicator || (
@@ -191,122 +235,112 @@ const Carousel: FC<CarouselProps> = ({
         );
     }
 
-    // Extraer el carousel a una función para reutilizarlo
-    const renderCarousel = () => (
-        <div
-            className={`relative overflow-hidden ${adaptToImages ? 'w-auto' : 'w-full h-full'} ${classNames?.carousel ?? ""}`}
-            onMouseEnter={() => pauseOnHover && setIsPaused(true)}
-            onMouseLeave={() => pauseOnHover && setIsPaused(false)}
-            onKeyDown={handleKeyDown}
-            tabIndex={0}
-            role="region"
-            aria-label="Carrusel de imágenes"
-        >
-            {/* Contenedor de slides */}
+    // If no slides, show a message
+    if (!slideImgLst || slideImgLst.length === 0) {
+        return <div className="p-4 text-center text-gray-500">No images to display</div>;
+    }
+
+    // Carousel component
+    const renderCarousel = () => {
+        const carouselHeight = adaptToImages ? getCurrentImageHeight() : 'auto';
+        
+        return (
             <div
-                ref={carouselRef}
-                className={`flex snap-x snap-mandatory overflow-x-hidden ${adaptToImages ? 'h-auto' : 'w-full h-full'}`}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-                style={optimalHeight && adaptToImages ? { height: `${optimalHeight}px` } : {}}
+                className={`relative overflow-hidden ${classNames?.carousel ?? ""}`}
+                onMouseEnter={() => pauseOnHover && setIsPaused(true)}
+                onMouseLeave={() => pauseOnHover && setIsPaused(false)}
+                onKeyDown={handleKeyDown}
+                tabIndex={0}
+                role="region"
+                aria-label="Image carousel"
+                style={{ height: carouselHeight }}
             >
-                {slideImgLst.map((img, index) => (
-                    <div
-                        key={`slide-${index * 1}`}
-                        className={`flex-shrink-0 snap-center ${adaptToImages ? 'w-auto max-w-full' : 'w-full'} ${classNames?.carouselItem ?? ""}`}
-                        style={{ scrollSnapAlign: 'start' }}
-                        role="tabpanel"
-                        aria-roledescription="slide"
-                        aria-label={`Slide ${index + 1} de ${totalSlides}`}
-                    >
-                        <div className={`relative flex flex-col justify-center ${adaptToImages ? 'h-auto' : 'h-full w-full'}`}>
-                            <img
-                                src={img}
-                                className={`${adaptToImages ? 'max-w-full h-auto' : 'w-full h-full object-cover'}`}
-                                alt={`Slide ${index + 1}`}
-                                loading="lazy"
-                                onLoad={(e) => handleImageLoad(e, index)}
-                                style={adaptToImages && imagesDimensions[index] ? {
-                                    objectFit: 'contain',
-                                    maxHeight: optimalHeight ? `${optimalHeight}px` : 'auto'
-                                } : {}}
-                            />
-                            {slideContentLst && slideContentLst[index] && (
-                                <div className={`absolute bottom-0 w-full p-4 bg-black bg-opacity-50 text-white ${classNames?.content ?? ""}`}>
-                                    {slideContentLst[index]}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {/* Progress indicator showing loading progress */}
-            {imagesLoaded < totalSlides && adaptToImages && (
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gray-200">
-                    <div
-                        className="h-full bg-blue-500 transition-all duration-300"
-                        style={{ width: `${(imagesLoaded / totalSlides) * 100}%` }}
-                    ></div>
-                </div>
-            )}
-
-            {/* Botones de navegación - MEJORADOS */}
-            {totalSlides > 1 && (
-                <>
-                    <button
-                        type="button"
-                        className={`absolute top-1/2 left-4 transform -translate-y-1/2 z-20 rounded-full w-10 h-10 flex items-center justify-center bg-white bg-opacity-60 hover:bg-opacity-80 text-black transition-all border border-gray-300 cursor-pointer ${classNames?.buttonL ?? ""}`}
-                        onClick={handlePrevClick}
-                        aria-label="Slide anterior"
-                        disabled={isLoading}
-                    >
-                        <PrevIcon />
-                    </button>
-                    <button
-                        type="button"
-                        className={`absolute top-1/2 right-4 transform -translate-y-1/2 z-20 rounded-full w-10 h-10 flex items-center justify-center bg-white bg-opacity-60 hover:bg-opacity-80 text-black transition-all border border-gray-300 cursor-pointer ${classNames?.buttonR ?? ""}`}
-                        onClick={handleNextClick}
-                        aria-label="Slide siguiente"
-                        disabled={isLoading}
-                    >
-                        <NextIcon />
-                    </button>
-                </>
-            )}
-
-            {/* Indicadores de posición */}
-            {showIndicators && (
+                {/* Slides container */}
                 <div
-                    className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10 ${classNames?.indicators ?? ""}`}
-                    role="tablist"
+                    ref={carouselRef}
+                    className="flex w-full h-full overflow-x-hidden"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
                 >
-                    {Array.from({ length: totalSlides }).map((_, index) => (
-                        <button
-                            type="button"
-                            key={`indicator-${index * 1}`}
-                            onClick={() => goToSlide(index)}
-                            aria-label={`Ir a slide ${index + 1}`}
-                            //aria-selected={index === currentIndex ? true : false}
-                            role="tab"
-                            className={`w-3 h-3 rounded-full transition-all cursor-pointer ${index === currentIndex
-                                ? `bg-white ${classNames?.activeIndicator ?? ""}`
-                                : `bg-white bg-opacity-50 hover:bg-opacity-75 ${classNames?.indicator ?? ""}`
-                                }`}
-                        />
+                    {slideImgLst.map((img, index) => (
+                        <div
+                            key={`slide-${index}`}
+                            className={`flex-shrink-0 w-full ${classNames?.carouselItem ?? ""}`}
+                            role="tabpanel"
+                            aria-roledescription="slide"
+                            aria-label={`Slide ${index + 1} of ${totalSlides}`}
+                        >
+                            <div className="relative h-full w-full">
+                                <img
+                                    src={img}
+                                    className={`w-full ${adaptToImages ? 'h-full object-contain' : 'h-full object-cover'}`}
+                                    alt={`Slide ${index + 1}`}
+                                    loading={index === 0 ? "eager" : "lazy"}
+                                />
+                                {slideContentLst && slideContentLst[index] && (
+                                    <div className={`absolute bottom-0 w-full p-4 bg-black bg-opacity-50 text-white ${classNames?.content ?? ""}`}>
+                                        {slideContentLst[index]}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     ))}
                 </div>
-            )}
-        </div>
-    );
 
-    // Si no hay contenido adicional, simplemente renderiza el carousel
+                {/* Navigation buttons */}
+                {totalSlides > 1 && (
+                    <>
+                        <button
+                            type="button"
+                            className={`absolute top-1/2 left-4 transform -translate-y-1/2 z-20 rounded-full w-10 h-10 flex items-center justify-center bg-white bg-opacity-60 hover:bg-opacity-80 text-black transition-all border border-gray-300 ${classNames?.buttonL ?? ""}`}
+                            onClick={handlePrevClick}
+                            aria-label="Previous slide"
+                        >
+                            <PrevIcon />
+                        </button>
+                        <button
+                            type="button"
+                            className={`absolute top-1/2 right-4 transform -translate-y-1/2 z-20 rounded-full w-10 h-10 flex items-center justify-center bg-white bg-opacity-60 hover:bg-opacity-80 text-black transition-all border border-gray-300 ${classNames?.buttonR ?? ""}`}
+                            onClick={handleNextClick}
+                            aria-label="Next slide"
+                        >
+                            <NextIcon />
+                        </button>
+                    </>
+                )}
+
+                {/* Indicators */}
+                {showIndicators && totalSlides > 1 && (
+                    <div
+                        className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10 ${classNames?.indicators ?? ""}`}
+                        role="tablist"
+                    >
+                        {Array.from({ length: totalSlides }).map((_, index) => (
+                            <button
+                                type="button"
+                                key={`indicator-${index}`}
+                                onClick={() => setCurrentIndex(index)}
+                                aria-label={`Go to slide ${index + 1}`}
+                                role="tab"
+                                className={`w-3 h-3 rounded-full transition-all ${
+                                    index === currentIndex
+                                        ? `bg-white ${classNames?.activeIndicator ?? ""}`
+                                        : `bg-white bg-opacity-50 hover:bg-opacity-75 ${classNames?.indicator ?? ""}`
+                                }`}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    // Render according to content position
     if (!content) {
         return renderCarousel();
     }
 
-    // Renderizar según la posición del contenido
     switch (contentPosition) {
         case 'top':
             return (

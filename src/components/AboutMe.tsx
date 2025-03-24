@@ -2,6 +2,10 @@ import { FC, useState } from "react";
 import Carousel from "./utils/Carousel";
 import './AboutMe.css';
 import Accordion from "./utils/Accordion";
+import img1 from '../assets/1742845512621.png';
+import img2 from '../assets/1742845512633.png';
+import img3 from '../assets/1742845512642.png';
+import img4 from '../assets/1742845512649.png';
 
 const AboutMe: FC = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -12,13 +16,9 @@ const AboutMe: FC = () => {
 
     // Imágenes reales en lugar de placeholders
     const slideImgLst: any[] = [
-        '/public/1000192510.jpg',
-        '/public/1000192628.jpg',
-        '/public/1000192510.jpg',
-        '/public/1000192628.jpg',
-        '/public/1000192510.jpg'
+        img1, img2, img3, img4
     ];
-
+/*
     // Contenido para cada slide del carousel
     const carouselContentLst = [
         <div className="text-center">
@@ -42,7 +42,7 @@ const AboutMe: FC = () => {
             <p>Construyendo puentes entre mundos aparentemente distantes</p>
         </div>
     ];
-
+*/
     // Contenido para los acordeones
     const slideContentLst: { title: string, content: JSX.Element }[] = [
     {
@@ -112,7 +112,7 @@ const AboutMe: FC = () => {
                 <Carousel 
                     timeInterval={4000} 
                     slideImgLst={slideImgLst}
-                    slideContentLst={carouselContentLst}
+                    /*slideContentLst={carouselContentLst}*/
                     content={additionalContent}
                     contentPosition="bottom"
                     adaptToImages={true}
