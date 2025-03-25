@@ -15,7 +15,7 @@ class Header extends PureComponent {
                     </span>
                 </div>
                 <div>
-                    <button type="button" className="inline-block rounded-full border border-[var(--neutral-1-smjd)] bg-[var(--neutral-1-smjd)] p-3 text-[var(--accent-2-smjd)] hover:bg-[var(--accent-2-smjd)] hover:text-[var(--neutral-2-smjd)] focus:outline-none focus:ring active:text-indigo-500">
+                    <a href="#Contacto" className="inline-block rounded-full border border-[var(--neutral-1-smjd)] bg-[var(--neutral-1-smjd)] p-3 text-[var(--accent-2-smjd)] hover:bg-[var(--accent-2-smjd)] hover:text-[var(--neutral-2-smjd)] focus:outline-none focus:ring active:text-indigo-500">
                         <div className="flex flex-row items-center justify-center">
                             <svg className="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -24,7 +24,7 @@ class Header extends PureComponent {
                             </svg>
                             <span className="pl-2 hidden md:block">Contácteme</span>
                         </div>
-                    </button>
+                    </a>
                 </div>
             </header>
         );
