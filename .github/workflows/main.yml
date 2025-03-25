@@ -2,8 +2,10 @@ name: Build and Deploy Vite
 
 on:
   push:
-    branches: ['main']
-#  workflow_dispatch:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  workflow_dispatch:
 
 permissions:
   contents: write
