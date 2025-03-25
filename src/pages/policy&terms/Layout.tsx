@@ -63,7 +63,7 @@ const Layout: FC = () => {
         )}
 
         {/* Main content */}
-        <main className="p-6" ref={targetRef}>
+        <main className="p-6">
           <Outlet />
         </main>
       </div>
