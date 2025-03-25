@@ -1,11 +1,11 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { FC, useEffect, useState } from 'react';
-import { usePDF } from 'react-to-pdf';
+//import { usePDF } from 'react-to-pdf';
 
 const Layout: FC = () => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState<string>('');
-  const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
+  //  const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
 
   useEffect(() => {
     const pathSegments = location.pathname.split('/').filter(segment => segment);
@@ -40,7 +40,7 @@ const Layout: FC = () => {
             </Link>
 
             <button
-              onClick={() => /*window.print()*/ toPDF({ filename: currentPath.concat('.pdf') })}
+              onClick={() => window.print() /*toPDF({ filename: currentPath.concat('.pdf') })*/}
               className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               <svg
