@@ -39,12 +39,12 @@ const Footer: FC = () => {
                     </div>
                     <div className='text-center md:text-left flex flex-col'>
                         <h4>Contáctanos</h4>
-                        <a href="mailto:julito.1998@hotmail.es" className='flex items-center justify-center md:justify-start'>
+                        <a href="mailto:info@summitexplorerjd.ec" className='flex items-center justify-center md:justify-start'>
                             <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                                 <polyline points="22,6 12,13 2,6" />
                             </svg>
-                            <p className='p-1'>julito.1998@hotmail.es</p>
+                            <p className='p-1'>info@summitexplorerjd.ec</p>
                         </a>
                         <a href="https://www.instagram.com/summitexplorer_jd/" target='_blank' className='flex items-center justify-center md:justify-start' rel='noopener'>
                             <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -74,9 +74,10 @@ const Footer: FC = () => {
                 </div>
                 <p>&copy; 2025, SummitExplorer JD. Todos los derechos reservados.</p>
                 <p className='text-[var(--neutral-2-smjd)]'>
-                    <a href="#privacy-policy" onClick={openModalPrivacy} className="hover:underline">Política de Privacidad</a> | <a href="#terms-of-service" onClick={openModalTerms} className="hover:underline"> Términos de Servicio</a>
+                    {/*<a href="#privacy-policy" onClick={openModalPrivacy} className="hover:underline">Política de Privacidad</a> | <a href="#terms-of-service" onClick={openModalTerms} className="hover:underline"> Términos de Servicio</a>*/}
+                    <Link to="/privacy&terms/POLITICASDEPRIVACIDAD" className="hover:underline">Política de Privacidad</Link> | <Link to="/privacy&terms/TERMINOSDELSERVICIO" className="hover:underline"> Términos de Servicio</Link>
                     <hr />
-                    <Link to='privacy&terms'>privacy&terms</Link>
+                    <Link to='privacy&terms' className="hover:underline">privacy&terms</Link>
                 </p>
             </footer>
             <Modal isOpen={isModalOpenPrivacy} onClose={closeModalPrivacy} id='privacy-policy'>

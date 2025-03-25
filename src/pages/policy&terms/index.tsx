@@ -4,19 +4,19 @@ import { privAndTermsLst } from "~/utils/privacytermsLs";
 
 const Index: FC = () => {
     return (
-        <div className="max-w-4xl mx-auto py-4 px-4">
-            <header className="mb-8 text-center">
+        <article className="max-w-4xl mx-auto py-4 px-4">
+            <section className="mb-8 text-center">
                 <h1 className="text-3xl font-bold text-gray-800 mb-3">Privacidad y Términos</h1>
                 <p className="text-gray-600">
                     Por favor, revisa nuestras políticas y términos para comprender mejor cómo funciona nuestro servicio.
                 </p>
-            </header>
-            
-            <div className="bg-white rounded-lg shadow-md p-6">
+            </section>
+
+            <section className="bg-white rounded-lg shadow-md p-6">
                 <ul className="divide-y divide-gray-200">
                     {privAndTermsLst.map((item, index) => (
-                        <li key={index} className="py-3 first:pt-0 last:pb-0">
-                            <Link 
+                        <li key={index * 1} className="py-3 first:pt-0 last:pb-0">
+                            <Link
                                 to={"/privacy&terms".concat(item.route)}
                                 className="flex items-center text-blue-600 hover:text-blue-800 transition-colors group"
                             >
@@ -30,11 +30,11 @@ const Index: FC = () => {
                         </li>
                     ))}
                 </ul>
-            </div>
-            
-            <div className="mt-8 text-center">
-                <Link 
-                    to="/" 
+            </section>
+
+            <section className="mt-8 text-center">
+                <Link
+                    to="/"
                     className="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md transition-colors"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -42,8 +42,8 @@ const Index: FC = () => {
                     </svg>
                     Volver al Inicio
                 </Link>
-            </div>
-        </div>
+            </section>
+        </article>
     );
 };
 

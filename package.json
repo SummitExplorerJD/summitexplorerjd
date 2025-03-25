@@ -15,6 +15,7 @@
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.3",
     "react-router-dom": "^7.4.0",
+    "react-to-pdf": "^1.0.1",
     "summitexplorerjd": "file:"
   },
   "devDependencies": {
