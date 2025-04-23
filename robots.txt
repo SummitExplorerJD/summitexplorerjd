@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /checkout/
+
+Allow: /
+
+Sitemap: https://summitexplorerjd.ec/sitemap.xml
