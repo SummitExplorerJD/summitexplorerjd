@@ -29,6 +29,16 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Add robots.txt and sitemap.xml to dist
+        run: |
+          for file in robots.txt sitemap.xml; do
+            if [ -f "$file" ]; then
+              cp "$file" dist/
+            else
+              echo "⚠️  $file no encontrado, omitiendo"
+            fi
+          done
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
