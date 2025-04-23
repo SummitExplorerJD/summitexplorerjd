@@ -1,7 +1,5 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
-
-type IdType = 'privacy-policy' | 'terms-of-service' | string;
 
 const Footer: FC = () => {
 
