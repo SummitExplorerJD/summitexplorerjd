@@ -29,9 +29,9 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Add robots.txt, sitemap.xml and .htaccess to dist
+      - name: Add robots.txt, sitemap.xml and BingSiteAuth.xml to dist
         run: |
-          for file in robots.txt sitemap.xml .htaccess BingSiteAuth.xml; do
+          for file in robots.txt sitemap.xml BingSiteAuth.xml; do
             if [ -f "$file" ]; then
               cp "$file" dist/
             else
