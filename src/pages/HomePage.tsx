@@ -1,13 +1,15 @@
-import { FC } from "react";
+import { FC, lazy, Suspense } from "react";
 import AsideMenu from '~/components/AsideMenu'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 import Home from '~/components/Home'
-import AboutMe from '~/components/AboutMe'
-import Services from '~/components/Services'
-import Skills from '~/components/Skills'
-import Projects from '~/components/Projects'
-import Contact from '~/components/Contact'
+
+
+const AboutMe = lazy(() => import('~/components/AboutMe'));
+const Services = lazy(() => import('~/components/Services'));
+const Skills = lazy(() => import('~/components/Skills'));
+const Projects = lazy(() => import('~/components/Projects'));
+const Contact = lazy(() => import('~/components/Contact'));
 
 const HomePage: FC = () => {
     return (
@@ -15,11 +17,13 @@ const HomePage: FC = () => {
           <Header></Header>
           <main className='bg-[url(/1000192510.avif)] md:bg-[url(/1000192628.avif)] bg-cover bg-center bg-fixed bg-no-repeat'>
             <Home></Home>
-            <AboutMe></AboutMe>
-            <Services></Services>
-            <Skills></Skills>
-            <Projects></Projects>
-            <Contact></Contact>
+            <Suspense fallback={<div className="loading-placeholder">Cargando...</div>}>
+              <AboutMe></AboutMe>
+              <Services></Services>
+              <Skills></Skills>
+              <Projects></Projects>
+              <Contact></Contact>
+            </Suspense>
           </main>
           <AsideMenu></AsideMenu>
           <Footer></Footer>
