@@ -1,10 +1,10 @@
 import { FC } from "react";
 import CardCarousel from "./utils/CardCarousel";
-import img1 from '~/assets/1742845512657.png';
-import img2 from '~/assets/1742845512666.png';
-import img3 from '~/assets/1742845512680.png';
-import img4 from '~/assets/1742845512621.png';
-import img5 from '~/assets/Screenshot 2025-03-24 204041.png';
+import img1 from '~/assets/1742845512657.avif';
+import img2 from '~/assets/1742845512666.avif';
+import img3 from '~/assets/1742845512680.avif';
+import img4 from '~/assets/1742845512621.avif';
+import img5 from '~/assets/Screenshot 2025-03-24 204041.avif';
 
 const Services: FC = () => {
     // Reformateamos los datos para CardCarousel
