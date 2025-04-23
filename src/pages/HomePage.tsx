@@ -14,7 +14,7 @@ const HomePage: FC = () => {
     return (
         <>
           <Header></Header>
-          <main className='bg-[url(/1000192510.jxl)] md:bg-[url(/1000192628.jxl)] bg-cover bg-center bg-fixed bg-no-repeat'>
+          <main className='bg-[url(/1000192510.avif)] md:bg-[url(/1000192628.avif)] bg-cover bg-center bg-fixed bg-no-repeat'>
             <Home></Home>
             <AboutMe></AboutMe>
             <Services></Services>
