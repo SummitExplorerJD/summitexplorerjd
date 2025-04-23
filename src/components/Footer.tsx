@@ -1,33 +1,9 @@
 import { FC, useEffect, useState } from 'react';
-import Modal from './utils/Modal';
-import PrivacyPolicy from './PrivacyPolicy';
-import TermsOfService from './TermsOfService';
 import { Link } from 'react-router-dom';
 
 type IdType = 'privacy-policy' | 'terms-of-service' | string;
 
 const Footer: FC = () => {
-
-    const [isModalOpenPrivacy, setIsModalOpenPrivacy] = useState(false);
-
-    const openModalPrivacy = () => setIsModalOpenPrivacy(true);
-    const closeModalPrivacy = () => setIsModalOpenPrivacy(false);
-
-    const [isModalOpenTerms, setIsModalOpenTerms] = useState(false);
-
-    const openModalTerms = () => setIsModalOpenTerms(true);
-    const closeModalTerms = () => setIsModalOpenTerms(false);
-
-    useEffect(() => {
-        const url = new URL(window.location.href);
-        const id = url.hash.slice(1) as IdType;
-        if (id === 'privacy-policy') {
-            openModalPrivacy();
-        } else if (id === 'terms-of-service') {
-            openModalTerms();
-        }
-    }, []);
-
 
     return (
         <>
@@ -74,18 +50,11 @@ const Footer: FC = () => {
                 </div>
                 <p>&copy; 2025, SummitExplorer JD. Todos los derechos reservados.</p>
                 <p className='text-[var(--neutral-2-smjd)]'>
-                    {/*<a href="#privacy-policy" onClick={openModalPrivacy} className="hover:underline">Política de Privacidad</a> | <a href="#terms-of-service" onClick={openModalTerms} className="hover:underline"> Términos de Servicio</a>*/}
                     <Link to="/privacy&terms/POLITICASDEPRIVACIDAD" className="hover:underline">Política de Privacidad</Link> | <Link to="/privacy&terms/TERMINOSDELSERVICIO" className="hover:underline"> Términos de Servicio</Link>
                     <hr />
                     <Link to='privacy&terms' className="hover:underline">privacy&terms</Link>
                 </p>
             </footer>
-            <Modal isOpen={isModalOpenPrivacy} onClose={closeModalPrivacy} id='privacy-policy'>
-                <PrivacyPolicy></PrivacyPolicy>
-            </Modal>
-            <Modal isOpen={isModalOpenTerms} onClose={closeModalTerms} id='terms-of-service'>
-                <TermsOfService></TermsOfService>
-            </Modal>
         </>
     )
 };

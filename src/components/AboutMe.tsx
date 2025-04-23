@@ -2,10 +2,10 @@ import { FC, useState } from "react";
 import Carousel from "./utils/Carousel";
 import './AboutMe.css';
 import Accordion from "./utils/Accordion";
-import img1 from '../assets/1742845512621.png';
-import img2 from '../assets/1742845512633.png';
-import img3 from '../assets/1742845512642.png';
-import img4 from '../assets/1742845512649.png';
+import img1 from '../assets/1742845512621.avif';
+import img2 from '../assets/1742845512633.avif';
+import img3 from '../assets/1742845512642.avif';
+import img4 from '../assets/1742845512649.avif';
 
 const AboutMe: FC = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
