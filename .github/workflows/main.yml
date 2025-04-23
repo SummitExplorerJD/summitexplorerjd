@@ -31,7 +31,7 @@ jobs:
 
       - name: Add robots.txt, sitemap.xml and .htaccess to dist
         run: |
-          for file in robots.txt sitemap.xml .htaccesss BingSiteAuth.xml; do
+          for file in robots.txt sitemap.xml .htaccess BingSiteAuth.xml; do
             if [ -f "$file" ]; then
               cp "$file" dist/
             else
