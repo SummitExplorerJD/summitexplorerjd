@@ -15,7 +15,8 @@
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.3",
     "react-router-dom": "^7.4.0",
-    "summitexplorerjd": "file:"
+    "summitexplorerjd": "file:",
+    "terser": "^5.39.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
