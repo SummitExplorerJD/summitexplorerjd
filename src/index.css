@@ -38,9 +38,10 @@
 		font-weight: bold;
 	}
 
-	h4 {
+	h4,
+	.h4 {
 		font-weight: bold;
-		color: var(--neutral-2-smjd);
+		color: var(--neutral-2-smjd) !important;
 	}
 
 	html {

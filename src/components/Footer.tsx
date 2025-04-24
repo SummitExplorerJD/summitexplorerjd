@@ -7,11 +7,11 @@ const Footer: FC = () => {
         <footer className="bg-[var(--accent-2-smjd)] p-5 text-center text-white flex flex-col">
             <div className='flex flex-col md:flex-row md:mx-10 mx-4 items-center justify-around'>
                 <div className='text-center md:text-left flex flex-col'>
-                    <h4>SummitExplorer JD</h4>
+                    <h2 className='h4'>SummitExplorer JD</h2>
                     <p>Explora el mundo con nosotros.</p>
                 </div>
                 <div className='text-center md:text-left flex flex-col'>
-                    <h4>Contáctanos</h4>
+                    <h2 className='h4'>Contáctenos</h2>
                     <a href="mailto:info@summitexplorerjd.ec" className='flex items-center justify-center md:justify-start'>
                         <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -35,7 +35,7 @@ const Footer: FC = () => {
                     </a>
                 </div>
                 <div className='text-center md:text-left flex flex-col'>
-                    <h4>Explora</h4>
+                    <h2 className='h4'>Explora</h2>
                     <a href="# ">Inicio</a>
                     <a href="#SobreMi">Acerca de</a>
                     <a href="#Proyectos">Proyectos</a>
