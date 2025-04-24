@@ -12,7 +12,7 @@ const Skills: FC = () => {
     return (
         <section id='Habilidades' className="py-12 bg-gray-100">
             <div className="container mx-auto">
-                <h1 className="text-3xl font-semibold text-gray-800 text-center mb-8">Habilidades</h1>
+                <h2 className="text-[var(--primary-smjd)] text-2xl font-bold text-center mb-12">Habilidades</h2>
                 <p className="text-lg text-gray-600 text-center mb-8">Tecnologías con las que trabajo</p>
                 <Masonry columns={3} gap={4}>
                     <MasonryItem>
