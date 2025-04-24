@@ -67,6 +67,11 @@
   <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2)$">
     Header set Cache-Control "max-age=31536000, public, immutable"
   </FilesMatch>
+
+  <FilesMatch "1000192510\.avif|1000192628\.avif">
+    Header set Priority "high"
+  </FilesMatch>
+
 </IfModule>
 
 # Compresión GZIP si no está habilitada a nivel de servidor

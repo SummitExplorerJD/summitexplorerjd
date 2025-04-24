@@ -18,35 +18,11 @@ const AboutMe: FC = () => {
     const slideImgLst = [
         img1, img2, img3, img4
     ];
-    /*
-        // Contenido para cada slide del carousel
-        const carouselContentLst = [
-            <div className="text-center">
-                <h3 className="text-xl font-bold mb-2">Desarrollo e Innovación</h3>
-                <p>Creando soluciones tecnológicas que transforman vidas</p>
-            </div>,
-            <div className="text-center">
-                <h3 className="text-xl font-bold mb-2">Explorando Alturas</h3>
-                <p>La montaña como escuela de vida y superación</p>
-            </div>,
-            <div className="text-center">
-                <h3 className="text-xl font-bold mb-2">Pasión por la Ciencia</h3>
-                <p>Combinando curiosidad científica y aprendizaje constante</p>
-            </div>,
-            <div className="text-center">
-                <h3 className="text-xl font-bold mb-2">Misión y Visión</h3>
-                <p>Inspirando a otros a alcanzar sus propias cumbres</p>
-            </div>,
-            <div className="text-center">
-                <h3 className="text-xl font-bold mb-2">Naturaleza y Tecnología</h3>
-                <p>Construyendo puentes entre mundos aparentemente distantes</p>
-            </div>
-        ];
-    */
+
     // Contenido para los acordeones
     const slideContentLst: { title: string, content: JSX.Element }[] = [
         {
-            title: 'Conoceme',
+            title: 'Conóceme',
             content: <p className="m-4">¡Hola! Soy Julio Castro, un ingeniero de software con una profunda pasión por la escalada, el alpinismo y la ciencia. Mi vida se define por el equilibrio entre la innovación tecnológica y la conexión con la naturaleza. Cada línea de código que escribo y cada montaña que escalo son reflejo de mi compromiso con la superación personal y profesional.</p>
         },
         {
