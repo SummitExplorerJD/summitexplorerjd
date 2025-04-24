@@ -67,7 +67,7 @@ const Services: FC = () => {
 
     return (
         <section id='Servicios' className="py-16 flex flex-col items-center justify-center bg-[var(--accent-1o-smjd)]">
-            <h2 className="text-[var(--neutral-1-smjd)] text-2xl font-bold text-center mb-12">Servicios</h2>
+            <h2 className="text-[var(--neutral-1-smjd)] text-2xl font-bold text-center mb-8">Servicios</h2>
             <div className="w-full max-w-7xl">
                 <CardCarousel
                     tarjetas={servicios}

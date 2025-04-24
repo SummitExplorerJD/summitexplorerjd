@@ -62,10 +62,6 @@ export const CardCarousel: FC<CardCarouselProps> = ({
       onMouseLeave={() => setPausado(false)}
       ref={carouselRef}
     >
-      <h2 className="text-center mb-8 text-3xl font-bold text-[var(--accent-1-smjd,#333)]">
-        Nuestras Tarjetas
-      </h2>
-
       <div className="flex items-center justify-between mb-6">
         <button
           className="bg-[var(--accent-2-smjd,#555)] text-white rounded-full w-10 h-10 flex items-center justify-center text-xl transition-colors duration-300 hover:bg-[var(--accent-1-smjd,#333)]"

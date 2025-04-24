@@ -48,7 +48,7 @@ const Footer: FC = () => {
             <p>&copy; 2025, SummitExplorer JD. Todos los derechos reservados.</p>
             <p className='text-[var(--neutral-2-smjd)]'>
                 <Link to="/privacy&terms/POLITICASDEPRIVACIDAD" className="hover:underline">Política de Privacidad</Link> | <Link to="/privacy&terms/TERMINOSDELSERVICIO" className="hover:underline"> Términos de Servicio</Link>
-                <hr />
+                <hr className='mx-10 my-5' />
                 <Link to='privacy&terms' className="hover:underline">privacy&terms</Link>
             </p>
         </footer>
