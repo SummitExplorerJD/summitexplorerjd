@@ -21,6 +21,7 @@
 @layer base {
 	body {
 		font-family: var(--font-nunito-sans-msjd);
+		font-display: swap;
 	}
 
 	h1 {
@@ -47,6 +48,4 @@
 	}
 }
 
-@layer components {
-	
-}
+@layer components {}
