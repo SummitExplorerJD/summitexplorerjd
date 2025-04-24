@@ -126,8 +126,8 @@ export const CardCarousel: FC<CardCarouselProps> = ({
       <div className="flex justify-center gap-2 mt-6">
         {Array.from({ length: totalPaginas }).map((_, index) => (
           <button
-            key={index}
-            className={`w-3 h-3 rounded-full border-0 cursor-pointer p-0 ${index === paginaActual ? 'bg-[var(--accent-2-smjd,#555)]' : 'bg-gray-300'
+            key={index * 1}
+            className={`w-3 h-3 ms-1.5 rounded-full border-0 cursor-pointer p-0 ${index === paginaActual ? 'bg-[var(--accent-2-smjd,#555)]' : 'bg-gray-300'
               }`}
             onClick={() => setPaginaActual(index)}
             aria-label={`Ir a página ${index + 1}`}
