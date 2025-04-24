@@ -96,7 +96,7 @@ const AboutMe: FC = () => {
                         showIndicators={true}
                         pauseOnHover={true}
                         classNames={{
-                            carousel: "rounded-lg shadow-xl overflow-hidden h-[500px] md:w-2/5 w-full mx-auto",
+                            carousel: "rounded-lg shadow-xl overflow-hidden h-[500px] md:w-2/5 w-full mx-auto aspect-ratio",
                             content: "bg-opacity-70",
                             contentWrapper: "bg-[var(--neutral-1o10-smjd)] p-4 rounded-lg"
                         }}
