@@ -97,6 +97,7 @@ const Projects: FC = () => {
                             }
 
                             <img
+                                loading="lazy"
                                 src={project.image}
                                 alt={project.title}
                                 className="w-full h-48 object-cover"

@@ -48,9 +48,9 @@ const AsideMenu: FC = () => {
             if (!/desktop/.test(deviceType) && !disableMenu) {
                 // Check if click is outside both the menu and toggle button
                 if (
-                    asideRef.current && 
-                    toggleButtonRef.current && 
-                    !asideRef.current.contains(event.target as Node) && 
+                    asideRef.current &&
+                    toggleButtonRef.current &&
+                    !asideRef.current.contains(event.target as Node) &&
                     !toggleButtonRef.current.contains(event.target as Node)
                 ) {
                     setDisableMenu(true);
@@ -59,7 +59,7 @@ const AsideMenu: FC = () => {
         };
 
         document.addEventListener('mousedown', handleClickOutside);
-        
+
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -102,9 +102,9 @@ const AsideMenu: FC = () => {
                     </ul>
                 </nav>
             </aside>
-            <div 
+            <div
                 ref={toggleButtonRef}
-                className={/mobile|tablet/.test(deviceType) ? "fixed bottom-7 z-50 right-7 p-3 rounded-full bg-[var(--accent-2-smjd)] text-white cursor-pointer shadow-2xl border-white" : "hidden"} 
+                className={/mobile|tablet/.test(deviceType) ? "fixed bottom-7 z-50 right-7 p-3 rounded-full bg-[var(--accent-2-smjd)] text-white cursor-pointer shadow-2xl border-white" : "hidden"}
                 onClick={() => setDisableMenu(!disableMenu)}
             >
                 <svg className={`h-10 w-10 ${disableMenu ? 'rotate-90' : 'rotate-90-inverse'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

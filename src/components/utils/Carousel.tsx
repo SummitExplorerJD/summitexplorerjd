@@ -44,7 +44,7 @@ const Carousel: FC<CarouselProps> = ({
     const [touchStart, setTouchStart] = useState<number | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [imagesLoaded, setImagesLoaded] = useState(0);
-    const [imageDimensions, setImageDimensions] = useState<{width: number, height: number}[]>([]);
+    const [imageDimensions, setImageDimensions] = useState<{ width: number, height: number }[]>([]);
     const totalSlides = slideImgLst?.length || 0;
 
     // Check if the slideImgLst is valid
@@ -58,10 +58,10 @@ const Carousel: FC<CarouselProps> = ({
     // Preload images to ensure they're available and get their natural dimensions
     useEffect(() => {
         if (!slideImgLst || slideImgLst.length === 0) return;
-        
+
         let loadedCount = 0;
-        const dimensions: {width: number, height: number}[] = [];
-        
+        const dimensions: { width: number, height: number }[] = [];
+
         const preloadImages = slideImgLst.map((src, index) => {
             return new Promise<void>((resolve) => {
                 const img = new Image();
@@ -69,31 +69,31 @@ const Carousel: FC<CarouselProps> = ({
                 img.onload = () => {
                     loadedCount++;
                     setImagesLoaded(loadedCount);
-                    
+
                     // Store the natural dimensions of the image
                     dimensions[index] = {
                         width: img.naturalWidth,
                         height: img.naturalHeight
                     };
-                    
+
                     if (loadedCount === slideImgLst.length) {
                         setImageDimensions(dimensions);
                     }
-                    
+
                     resolve();
                 };
                 img.onerror = () => {
                     console.error(`Failed to load image: ${src}`);
                     loadedCount++;
                     setImagesLoaded(loadedCount);
-                    
+
                     // Set default dimensions for failed images
                     dimensions[index] = { width: 300, height: 200 };
-                    
+
                     if (loadedCount === slideImgLst.length) {
                         setImageDimensions(dimensions);
                     }
-                    
+
                     resolve(); // Still resolve to continue loading others
                 };
             });
@@ -115,21 +115,21 @@ const Carousel: FC<CarouselProps> = ({
         if (!carouselRef.current || !adaptToImages || imageDimensions.length === 0 || !imageDimensions[currentIndex]) {
             return 'auto';
         }
-        
+
         const containerWidth = carouselRef.current.clientWidth;
         const imgDimensions = imageDimensions[currentIndex];
-        
+
         // Calculate proportional height based on container width
         const aspectRatio = imgDimensions.width / imgDimensions.height;
         const calculatedHeight = containerWidth / aspectRatio;
-        
+
         return `${calculatedHeight}px`;
     }, [adaptToImages, currentIndex, imageDimensions]);
 
     // Manual transition control
     const transitionToSlide = useCallback((index: number) => {
         if (!carouselRef.current) return;
-        
+
         const slideWidth = carouselRef.current.clientWidth;
         carouselRef.current.scrollTo({
             left: index * slideWidth,
@@ -156,7 +156,7 @@ const Carousel: FC<CarouselProps> = ({
     // Slide navigation
     const slide = useCallback((direction: number) => {
         if (totalSlides <= 1) return;
-        
+
         setCurrentIndex(prev => {
             let newIndex = prev + direction;
             // Circular navigation
@@ -173,7 +173,7 @@ const Carousel: FC<CarouselProps> = ({
 
     const handleTouchMove = (e: React.TouchEvent) => {
         if (touchStart === null) return;
-        
+
         const touchEnd = e.touches[0].clientX;
         const diff = touchStart - touchEnd;
 
@@ -243,7 +243,7 @@ const Carousel: FC<CarouselProps> = ({
     // Carousel component
     const renderCarousel = () => {
         const carouselHeight = adaptToImages ? getCurrentImageHeight() : 'auto';
-        
+
         return (
             <div
                 className={`relative overflow-hidden ${classNames?.carousel ?? ""}`}
@@ -323,11 +323,10 @@ const Carousel: FC<CarouselProps> = ({
                                 onClick={() => setCurrentIndex(index)}
                                 aria-label={`Go to slide ${index + 1}`}
                                 role="tab"
-                                className={`w-3 h-3 rounded-full transition-all ${
-                                    index === currentIndex
-                                        ? `bg-white ${classNames?.activeIndicator ?? ""}`
-                                        : `bg-white bg-opacity-50 hover:bg-opacity-75 ${classNames?.indicator ?? ""}`
-                                }`}
+                                className={`w-3 h-3 rounded-full transition-all ${index === currentIndex
+                                    ? `bg-white ${classNames?.activeIndicator ?? ""}`
+                                    : `bg-white bg-opacity-50 hover:bg-opacity-75 ${classNames?.indicator ?? ""}`
+                                    }`}
                             />
                         ))}
                     </div>
