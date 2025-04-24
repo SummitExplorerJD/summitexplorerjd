@@ -1,4 +1,4 @@
-import { PureComponent } from "react";
+import { PureComponent, memo } from "react";
 
 class Header extends PureComponent {
 
@@ -27,4 +27,4 @@ class Header extends PureComponent {
     }
 }
 
-export default Header;
+export default memo(Header);
