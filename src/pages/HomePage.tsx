@@ -15,7 +15,7 @@ const HomePage: FC = () => {
   return (
     <>
       <Header></Header>
-      <main className='bg-[url(/1000192510.avif)] md:bg-[url(/1000192628.avif)] bg-cover bg-center md:bg-fixed bg-no-repeat' style={{ minHeight: '100vh', contain: 'layout paint' }}>
+      <main className='bg-[url(/1000192510.avif)] md:bg-[url(/1000192628.avif)] bg-cover bg-center bg-fixed bg-no-repeat' style={{ minHeight: '100vh', contain: 'layout paint' }}>
         <Home></Home>
         <Suspense fallback={<div className="loading-placeholder">Cargando...</div>}>
           <AboutMe></AboutMe>
