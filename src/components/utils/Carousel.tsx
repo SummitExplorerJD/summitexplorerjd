@@ -319,11 +319,11 @@ const Carousel: FC<CarouselProps> = ({
                         {Array.from({ length: totalSlides }).map((_, index) => (
                             <button
                                 type="button"
-                                key={`indicator-${index}`}
+                                key={`indicator-${index * 1}`}
                                 onClick={() => setCurrentIndex(index)}
                                 aria-label={`Go to slide ${index + 1}`}
                                 role="tab"
-                                className={`w-3 h-3 rounded-full transition-all ${index === currentIndex
+                                className={`w-3 h-3 mx-1.5 rounded-full transition-all ${index === currentIndex
                                     ? `bg-white ${classNames?.activeIndicator ?? ""}`
                                     : `bg-white bg-opacity-50 hover:bg-opacity-75 ${classNames?.indicator ?? ""}`
                                     }`}
