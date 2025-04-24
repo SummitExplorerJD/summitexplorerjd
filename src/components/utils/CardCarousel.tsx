@@ -37,14 +37,14 @@ export const CardCarousel: FC<CardCarouselProps> = ({
 
   // Navegar a la página anterior
   const anterior = () => {
-    setPaginaActual((prevPagina) => 
+    setPaginaActual((prevPagina) =>
       prevPagina === 0 ? totalPaginas - 1 : prevPagina - 1
     );
   };
 
   // Navegar a la página siguiente
   const siguiente = () => {
-    setPaginaActual((prevPagina) => 
+    setPaginaActual((prevPagina) =>
       prevPagina === totalPaginas - 1 ? 0 : prevPagina + 1
     );
   };
@@ -56,7 +56,7 @@ export const CardCarousel: FC<CardCarouselProps> = ({
   };
 
   return (
-    <div 
+    <div
       className="w-full max-w-7xl mx-auto px-4 py-8 overflow-hidden"
       onMouseEnter={() => setPausado(true)}
       onMouseLeave={() => setPausado(false)}
@@ -65,19 +65,19 @@ export const CardCarousel: FC<CardCarouselProps> = ({
       <h2 className="text-center mb-8 text-3xl font-bold text-[var(--accent-1-smjd,#333)]">
         Nuestras Tarjetas
       </h2>
-      
+
       <div className="flex items-center justify-between mb-6">
-        <button 
+        <button
           className="bg-[var(--accent-2-smjd,#555)] text-white rounded-full w-10 h-10 flex items-center justify-center text-xl transition-colors duration-300 hover:bg-[var(--accent-1-smjd,#333)]"
           onClick={anterior}
           aria-label="Anterior"
         >
           &lt;
         </button>
-        
+
         <div className="flex-1 overflow-hidden px-4">
           <AnimatePresence mode="wait">
-            <motion.div 
+            <motion.div
               key={paginaActual}
               className="flex gap-5"
               initial={{ opacity: 0, x: 50 }}
@@ -85,20 +85,21 @@ export const CardCarousel: FC<CardCarouselProps> = ({
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5 }}
             >
-              {tarjetasActuales().map((tarjeta) => (
-                <motion.div 
-                  key={tarjeta.id} 
+              {tarjetasActuales().map((tarjeta, index) => (
+                <motion.div
+                  key={tarjeta.id}
                   className="flex-1 min-w-[250px] bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300"
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
-                    boxShadow: "0 8px 16px rgba(0,0,0,0.2)" 
+                    boxShadow: "0 8px 16px rgba(0,0,0,0.2)"
                   }}
                 >
                   {tarjeta.imagen && (
                     <div className="w-full h-40 overflow-hidden">
-                      <img 
-                        src={tarjeta.imagen} 
-                        alt={tarjeta.titulo} 
+                      <img
+                        loading={index === 0 ? "eager" : "lazy"}
+                        src={tarjeta.imagen}
+                        alt={tarjeta.titulo}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -116,8 +117,8 @@ export const CardCarousel: FC<CardCarouselProps> = ({
             </motion.div>
           </AnimatePresence>
         </div>
-        
-        <button 
+
+        <button
           className="bg-[var(--accent-2-smjd,#555)] text-white rounded-full w-10 h-10 flex items-center justify-center text-xl transition-colors duration-300 hover:bg-[var(--accent-1-smjd,#333)]"
           onClick={siguiente}
           aria-label="Siguiente"
@@ -125,14 +126,13 @@ export const CardCarousel: FC<CardCarouselProps> = ({
           &gt;
         </button>
       </div>
-      
+
       <div className="flex justify-center gap-2 mt-6">
         {Array.from({ length: totalPaginas }).map((_, index) => (
           <button
             key={index}
-            className={`w-3 h-3 rounded-full border-0 cursor-pointer p-0 ${
-              index === paginaActual ? 'bg-[var(--accent-2-smjd,#555)]' : 'bg-gray-300'
-            }`}
+            className={`w-3 h-3 rounded-full border-0 cursor-pointer p-0 ${index === paginaActual ? 'bg-[var(--accent-2-smjd,#555)]' : 'bg-gray-300'
+              }`}
             onClick={() => setPaginaActual(index)}
             aria-label={`Ir a página ${index + 1}`}
           />

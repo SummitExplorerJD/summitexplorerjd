@@ -18,42 +18,42 @@ const Skills: FC = () => {
                     <MasonryItem>
                         <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
                             <Popover message="Lenguaje de programación C#">
-                                <img src={CSharp} alt="C#" className="h-20" />
+                                <img loading="lazy" src={CSharp} alt="C#" className="h-20" />
                             </Popover>
                         </div>
                     </MasonryItem>
                     <MasonryItem>
                         <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
                             <Popover message="Framework .Net Core">
-                                <img src={DotNetCore} alt=".Net Core" className="h-20" />
+                                <img loading="lazy" src={DotNetCore} alt=".Net Core" className="h-20" />
                             </Popover>
                         </div>
                     </MasonryItem>
                     <MasonryItem>
                         <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
                             <Popover message="Node JS">
-                                <img src={NodeJS} alt="node js" className="h-20" />
+                                <img loading="lazy" src={NodeJS} alt="node js" className="h-20" />
                             </Popover>
                         </div>
                     </MasonryItem>
                     <MasonryItem>
                         <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
                             <Popover message="Framework React JS">
-                                <img src={ReactJS} alt="react" className="h-20" />
+                                <img loading="lazy" src={ReactJS} alt="react" className="h-20" />
                             </Popover>
                         </div>
                     </MasonryItem>
                     <MasonryItem>
                         <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
                             <Popover message="Python">
-                                <img src={Python} alt="react" className="h-20" />
+                                <img loading="lazy" src={Python} alt="react" className="h-20" />
                             </Popover>
                         </div>
                     </MasonryItem>
                     <MasonryItem>
                         <div className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
                             <Popover message="Rust lang">
-                                <img src={Rust} alt="react" className="h-20" />
+                                <img loading="lazy" src={Rust} alt="react" className="h-20" />
                             </Popover>
                         </div>
                     </MasonryItem>
