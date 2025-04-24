@@ -15,7 +15,7 @@ const Projects: FC = () => {
         {
             title: "SummitExplorer App",
             description: "Aplicación móvil para rastrear rutas de montañismo y compartir experiencias.",
-            image: "/1000192510.jpg", // Using your existing image
+            image: "/1000192510.avif", // Using your existing image
             technologies: ["React Native", "Node.js", "MongoDB"],
             link: "https://github.com/SummitExplorerJD",
             onDev: true
@@ -23,7 +23,7 @@ const Projects: FC = () => {
         {
             title: "Summit Restaurant Manager",
             description: "Plataforma web y móvil para la administración de restaurantes.",
-            image: "/1000192628.jpg", // Using your existing image
+            image: "/1000192628.avif", // Using your existing image
             technologies: [".Net", "Maui", "Sql"],
             link: "https://github.com/SummitExplorerJD",
             onDev: true

@@ -20,5 +20,31 @@ export default defineConfig({
       '~': path.resolve(__dirname, 'src')
     }
   },
-  base: '/'
+  base: '/',
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+      }
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: [
+            'react', 
+            'react-dom'
+          ]
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js'
+      }
+    },
+    dynamicImportVarsOptions: {
+      warnOnError: true,
+    },
+    // Divide el código por rutas
+    cssCodeSplit: true,
+  }
 })
