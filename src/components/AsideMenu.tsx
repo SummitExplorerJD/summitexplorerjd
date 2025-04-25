@@ -62,16 +62,52 @@ const AsideMenu: FC = () => {
     useEffect(() => {
         // Detect device type
         const userAgent = window.navigator.userAgent.toLowerCase();
+        let newDeviceType = '';
+
         if (/mobile|android|iphone/.test(userAgent)) {
-            setDeviceType('mobile');
-            setDisableMenu(true);
+            newDeviceType = 'mobile';
         } else if (/ipad|tablet/.test(userAgent)) {
-            setDeviceType('tablet');
-            setDisableMenu(false);
+            newDeviceType = 'tablet';
         } else {
-            setDeviceType('desktop');
-            setDisableMenu(false);
+            newDeviceType = 'desktop';
         }
+
+        // Comprobar si el dispositivo ha cambiado desde la última carga
+        const previousDeviceType = localStorage.getItem('deviceType');
+
+        if (previousDeviceType && previousDeviceType !== newDeviceType) {
+            // El tipo de dispositivo ha cambiado, guardar el nuevo y recargar
+            localStorage.setItem('deviceType', newDeviceType);
+            window.location.reload();
+        } else {
+            // Primera carga o mismo dispositivo, solo guardar el tipo
+            localStorage.setItem('deviceType', newDeviceType);
+            setDeviceType(newDeviceType);
+            setDisableMenu(newDeviceType === 'mobile');
+        }
+
+        // Añadir detector de cambio de tamaño de ventana
+        const handleResize = () => {
+            const width = window.innerWidth;
+            let resizedDeviceType = '';
+
+            // Determinar tipo de dispositivo basado en ancho
+            if (width < 768) {
+                resizedDeviceType = 'mobile';
+            } else if (width < 1024) {
+                resizedDeviceType = 'tablet';
+            } else {
+                resizedDeviceType = 'desktop';
+            }
+
+            if (resizedDeviceType !== newDeviceType) {
+                localStorage.setItem('deviceType', resizedDeviceType);
+                window.location.reload();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     // Add click outside handler to close menu
