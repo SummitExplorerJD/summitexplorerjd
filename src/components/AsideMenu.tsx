@@ -4,8 +4,6 @@ import './AsideMenu.css';
 type itemType = 'Inicio' | 'Sobre Mi' | 'Servicios' | 'Habilidades' | 'Proyectos' | 'Contacto';
 
 const AsideMenu: FC = () => {
-    const [segmentLine, setSegmentLine] = useState<JSX.Element[]>([]);
-    const [menuItems, setMenuItems] = useState<JSX.Element[]>([]);
     const [disableMenu, setDisableMenu] = useState<boolean>(false);
     const [deviceType, setDeviceType] = useState<string>('');
     const [itemSelected, setItemSelected] = useState<itemType>('Inicio');
@@ -14,31 +12,102 @@ const AsideMenu: FC = () => {
 
     const menuItemsNames: itemType[] = ['Inicio', 'Sobre Mi', 'Servicios', 'Habilidades', 'Proyectos', 'Contacto'];
 
+    // Icons mapping for menu items
+    const menuIcons = {
+        'Inicio': (
+            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+
+        ),
+        'Sobre Mi': (
+            <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="8.5" cy="7" r="4" />
+                <polyline points="17 11 19 13 23 9" />
+            </svg>
+        ),
+        'Servicios': (
+            <svg className="h-8 w-8" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <path d="M3.5 5.5l1.5 1.5l2.5 -2.5" />
+                <path d="M3.5 11.5l1.5 1.5l2.5 -2.5" />
+                <path d="M3.5 17.5l1.5 1.5l2.5 -2.5" />
+                <line x1="11" y1="6" x2="20" y2="6" />
+                <line x1="11" y1="12" x2="20" y2="12" />
+                <line x1="11" y1="18" x2="20" y2="18" />
+            </svg>
+        ),
+        'Habilidades': (
+            <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 11 12 14 22 4" />
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+            </svg>
+        ),
+        'Proyectos': (
+            <svg className="h-8 w-8" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <path d="M9 4h3l2 2h5a2 2 0 0 1 2 2v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
+                <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h2" />
+            </svg>
+        ),
+        'Contacto': (
+            <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+            </svg>
+        ),
+    };
+
     useEffect(() => {
-        const segmentNumbers = 30;
-        const segmentHeight: number = window.innerWidth / segmentNumbers;
-        const segments: JSX.Element[] = [];
-        for (let i = 0; i < segmentNumbers; i++) {
-            segments.push(<div key={i} className={`w-1 bg-${i % 2 == 0 ? "[var(--neutral-1-smjd)]" : "transparent"} rounded-full`} style={{ height: segmentHeight }}></div>);
-        }
-        setSegmentLine(segments);
-        const menuItemsArr: JSX.Element[] = [];
-        menuItemsNames.forEach((item, index) => {
-            menuItemsArr.push(<li key={index * 1}><a href={`#${item}`} onClick={() => setItemSelected(item)} className={`flex flex-row items-center uppercase text-lg`}><div className=' w-8 h-8 rounded-full bg-[var(--neutral-1-smjd)] mr-3'></div>{item}</a></li>)
-        });
-        setMenuItems(menuItemsArr);
         // Detect device type
         const userAgent = window.navigator.userAgent.toLowerCase();
+        let newDeviceType = '';
+
         if (/mobile|android|iphone/.test(userAgent)) {
-            setDeviceType('mobile');
-            setDisableMenu(true);
+            newDeviceType = 'mobile';
         } else if (/ipad|tablet/.test(userAgent)) {
-            setDeviceType('tablet');
-            setDisableMenu(false);
+            newDeviceType = 'tablet';
         } else {
-            setDeviceType('desktop');
-            setDisableMenu(false);
+            newDeviceType = 'desktop';
         }
+
+        // Comprobar si el dispositivo ha cambiado desde la última carga
+        const previousDeviceType = localStorage.getItem('deviceType');
+
+        if (previousDeviceType && previousDeviceType !== newDeviceType) {
+            // El tipo de dispositivo ha cambiado, guardar el nuevo y recargar
+            localStorage.setItem('deviceType', newDeviceType);
+            window.location.reload();
+        } else {
+            // Primera carga o mismo dispositivo, solo guardar el tipo
+            localStorage.setItem('deviceType', newDeviceType);
+            setDeviceType(newDeviceType);
+            setDisableMenu(newDeviceType === 'mobile');
+        }
+
+        // Añadir detector de cambio de tamaño de ventana
+        const handleResize = () => {
+            const width = window.innerWidth;
+            let resizedDeviceType = '';
+
+            // Determinar tipo de dispositivo basado en ancho
+            if (width < 768) {
+                resizedDeviceType = 'mobile';
+            } else if (width < 1024) {
+                resizedDeviceType = 'tablet';
+            } else {
+                resizedDeviceType = 'desktop';
+            }
+
+            if (resizedDeviceType !== newDeviceType) {
+                localStorage.setItem('deviceType', resizedDeviceType);
+                window.location.reload();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     // Add click outside handler to close menu
@@ -82,27 +151,41 @@ const AsideMenu: FC = () => {
         }
     }, [deviceType]);
 
-    useEffect(() => {
-        const menuItemsArr: JSX.Element[] = [];
-        menuItemsNames.forEach((item, index) => {
-            menuItemsArr.push(<li key={index * 1}><a href={`#${item.replace(' ', '')}`} onClick={() => { setItemSelected(item); setDisableMenu(true) }} className={`flex flex-row items-center uppercase text-lg ${item === itemSelected ? "text-[var(--neutral-2-smjd)]" : ""}`}><div className={`w-8 h-8 rounded-full ${item === itemSelected ? "bg-[var(--neutral-2-smjd)]" : "bg-[var(--neutral-1-smjd)]"} mr-3`}></div>{item}</a></li>)
-        });
-        setMenuItems(menuItemsArr);
-    }, [itemSelected]);
-
     return (
         <>
-            <aside ref={asideRef} className={(/desktop/.test(deviceType) ? "fixed top-0 left-0" : disableMenu ? "aside-menu-inverse fixed top-0" : "aside-menu fixed top-0 left-0") + " text-[var(--neutral-1-smjd)] pr-5 font-bold bg-[var(--accent-2-smjd)] z-100"}>
-                <nav className="h-screen text-left pl-5 flex flex-row">
-                    <div className='w-1 h-full mx-3 flex flex-col justify-around'>
-                        {segmentLine}
-                    </div>
-                    <ul className='flex flex-col justify-around h-full'>
-                        {menuItems}
+            <aside ref={asideRef} className={(/desktop/.test(deviceType) ? "fixed top-0 left-0" : disableMenu ? "aside-menu-inverse fixed top-0" : "aside-menu fixed top-0 left-0") + " text-[var(--neutral-1-smjd)] pr-5 font-bold bg-[#0F1924] z-100"}>
+                <nav className="h-screen text-left pl-5 flex flex-col justify-center relative">
+                    {/* Línea vertical central con z-index bajo */}
+                    <div className="absolute left-10 top-0 w-0.5 bg-[#7DD1E4] h-full z-0"></div>
+
+                    <ul className="flex flex-col justify-center h-full space-y-12">
+                        {menuItemsNames.map((item, index) => (
+                            <li key={index * 1} className="relative">
+                                <a
+                                    href={`#${item.replace(' ', '')}`}
+                                    onClick={() => { setItemSelected(item); setDisableMenu(true) }}
+                                    className={`flex items-center ${item === itemSelected ? "text-[#7DD1E4]" : "text-[#7DD1E4]/80"}`}
+                                >
+                                    {/* Ícono con fondo opaco para cubrir la línea */}
+                                    <div className="relative z-10 bg-[#0F1924] rounded-full p-1.5 border-2 border-[#0F1924]">
+                                        <div className="w-7 h-7 flex items-center justify-center">
+                                            {menuIcons[item]}
+                                        </div>
+                                    </div>
+                                    {/* Texto a la derecha */}
+                                    <span className="ml-4 uppercase tracking-wider font-bold text-lg">
+                                        {item}
+                                    </span>
+                                </a>
+                            </li>
+                        ))}
                     </ul>
                 </nav>
             </aside>
+
             <div
+                id='toggle-button'
+                aria-label="Toggle menu"
                 ref={toggleButtonRef}
                 className={/mobile|tablet/.test(deviceType) ? "fixed bottom-7 z-50 right-7 p-3 rounded-full bg-[var(--accent-2-smjd)] text-white cursor-pointer shadow-2xl border-white" : "hidden"}
                 onClick={() => setDisableMenu(!disableMenu)}
