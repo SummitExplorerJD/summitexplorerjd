@@ -3,6 +3,7 @@ import AsideMenu from '~/components/AsideMenu'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 import Home from '~/components/Home'
+import Halmet from 'react-helmet'
 
 
 const AboutMe = lazy(() => import('~/components/AboutMe'));
@@ -14,6 +15,10 @@ const Contact = lazy(() => import('~/components/Contact'));
 const HomePage: FC = () => {
   return (
     <>
+      <Halmet>
+        <link rel="preload" href="/1000192510.avif" as="image" />
+        <link rel="preload" href="/1000192628.avif" as="image" />
+      </Halmet>
       <Header></Header>
       <main className='bg-[url(/1000192510.avif)] md:bg-[url(/1000192628.avif)] bg-cover bg-center bg-fixed bg-no-repeat' style={{ minHeight: '100vh', contain: 'paint' }}>
         <Home></Home>
