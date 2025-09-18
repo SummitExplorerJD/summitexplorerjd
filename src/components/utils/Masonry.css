@@ -1,26 +1,203 @@
+/* Masonry Container Styles */
+.masonry-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Masonry Item Base Styles */
+.masonry-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.masonry-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.masonry-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--primary-smjd-rgb), 0.05) 0%,
+    rgba(var(--secondary-smjd-rgb), 0.03) 50%,
+    rgba(var(--accent-smjd-rgb), 0.05) 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.masonry-item:hover::before {
+  opacity: 1;
+}
+
+/* Technology Card Specific Styles */
+.masonry-item .tech-card {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 140px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.9) 100%
+  );
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.masonry-item .tech-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    var(--primary-smjd) 0%, 
+    var(--secondary-smjd) 50%, 
+    var(--accent-smjd) 100%
+  );
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.masonry-item:hover .tech-card::after {
+  transform: scaleX(1);
+}
+
+.masonry-item .tech-card img {
+  width: auto;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+}
+
+.masonry-item:hover .tech-card img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+/* Image Masonry Styles */
 .masonry-img {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 0;
 }
 
 .masonry-img-item {
-    break-inside: avoid;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.masonry-img-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .masonry-img-item img {
-    width: 100%;
-    display: block;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
+.masonry-img-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Content Masonry Styles */
 .masonry-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem; /* Tailwind class: gap-4 */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 0;
+}
+
+.masonry-content-item {
+  position: relative;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.masonry-content-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .masonry-container {
+    padding: 0 1rem;
   }
   
-  .masonry-content-item {
-    flex: 1 1 calc(33.333% - 1rem); /* Adjust the percentage based on the number of columns */
-    box-sizing: border-box;
-    margin-bottom: 1rem; /* Tailwind class: mb-4 */
+  .masonry-img {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
   }
+  
+  .masonry-content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .masonry-item .tech-card {
+    padding: 1.5rem;
+    min-height: 120px;
+  }
+  
+  .masonry-item .tech-card img {
+    height: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-img {
+    grid-template-columns: 1fr;
+  }
+  
+  .masonry-item .tech-card {
+    padding: 1rem;
+    min-height: 100px;
+  }
+}

@@ -1,7 +1,7 @@
 import { FC, useState, useEffect, useRef, ReactNode } from 'react';
 import './AsideMenu.css';
 
-type itemType = 'Inicio' | 'Sobre Mi' | 'Servicios' | 'Habilidades' | 'Proyectos' | 'Contacto';
+type itemType = 'Inicio' | 'Acerca de' | 'Servicios' | 'Habilidades' | 'Proyectos' | 'Contacto';
 
 const AsideMenu: FC = () => {
     const [disableMenu, setDisableMenu] = useState<boolean>(false);
@@ -10,7 +10,7 @@ const AsideMenu: FC = () => {
     const asideRef = useRef<HTMLElement>(null);
     const toggleButtonRef = useRef<HTMLDivElement>(null);
 
-    const menuItemsNames: itemType[] = ['Inicio', 'Sobre Mi', 'Servicios', 'Habilidades', 'Proyectos', 'Contacto'];
+    const menuItemsNames: itemType[] = ['Inicio', 'Acerca de', 'Servicios', 'Habilidades', 'Proyectos', 'Contacto'];
 
     // Icons mapping for menu items
     const menuIcons: Record<itemType, ReactNode> = {
@@ -20,7 +20,7 @@ const AsideMenu: FC = () => {
             </svg>
 
         ),
-        'Sobre Mi': (
+        'Acerca de': (
             <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                 <circle cx="8.5" cy="7" r="4" />
@@ -162,7 +162,7 @@ const AsideMenu: FC = () => {
                         {menuItemsNames.map((item, index) => (
                             <li key={index * 1} className="relative">
                                 <a
-                                    href={`#${item.replace(' ', '')}`}
+                                    href={`#${item === 'Acerca de' ? 'SobreMi' : item.replace(' ', '')}`}
                                     onClick={() => { setItemSelected(item); setDisableMenu(true) }}
                                     className={`flex items-center ${item === itemSelected ? "text-[#7DD1E4]" : "text-[#7DD1E4]/80"}`}
                                 >
