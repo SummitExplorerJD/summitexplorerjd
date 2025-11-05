@@ -13,22 +13,21 @@ interface Project {
 const Projects: FC = () => {
     const projects: Project[] = [
         {
-            title: "SummitExplorer App",
-            description: "Aplicación móvil para rastrear rutas de montañismo y compartir experiencias.",
-            image: "/1000192510.avif", // Using your existing image
-            technologies: ["React Native", "Node.js", "MongoDB"],
-            link: "https://github.com/SummitExplorerJD",
+            title: "ClimbEdge Platform",
+            description: "Plataforma integral para tableros de escalada inteligentes usando RPI board y análisis de rendimiento en la nube. También integra módulos para el seguimiento de rutas y registros de alpinismo.",
+            image: "/climbedge.avif",
+            technologies: [".NET 8", "PostgreSQL", "Qwik", "Docker"],
+            link: "https://github.com/SummitExplorerJD/ClimbEdge",
             onDev: true
         },
         {
-            title: "Summit Restaurant Manager",
-            description: "Plataforma web y móvil para la administración de restaurantes.",
-            image: "/1000192628.avif", // Using your existing image
-            technologies: [".Net", "Maui", "Sql"],
-            link: "https://github.com/SummitExplorerJD",
+            title: "RPI Climb Board",
+            description: "Sistema embebido que controla iluminación LED WS2812B, sensores FSR y comunicación con ClimbEdge.",
+            image: "/rpiboard.avif",
+            technologies: ["Node", "Python", "Raspberry Pi Zero 2 W", "SPI"],
+            link: "https://github.com/SummitExplorerJD/ClimbEdge-RPi",
             onDev: true
-        },
-        // Add more projects as needed
+        }
     ];
 
     const containerVariants = {
