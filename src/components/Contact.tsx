@@ -154,7 +154,7 @@ const Contact: FC = () => {
                       id="message"
                       rows={5}
                       className="w-full px-4 py-3 pl-12 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-[var(--accent-1-smjd)] focus:bg-white focus:outline-none transition-all duration-300 text-gray-700 resize-none"
-                      placeholder="Cuéntanos sobre tu proyecto o aventura..."
+                      placeholder="Cuéntanos sobre tu proyecto o aventura... ¡y te ayudaremos a hacerla realidad!"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       required
@@ -294,7 +294,7 @@ const Contact: FC = () => {
                     Email
                   </a>
                   <a
-                    href="https://chat.whatsapp.com/C0Y2WdpsOIm9kch9WKgnAo"
+                    href="https://wa.me/593992859309?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios.%20%C2%BFPodr%C3%ADa%20ayudarme%2C%20por%20favor%3F"
                     target="_blank"
                     rel="noopener"
                     className="flex items-center justify-center p-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105"
