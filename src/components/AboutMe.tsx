@@ -84,9 +84,29 @@ const AboutMe: FC = () => {
     );
 
     return (
-        <section id='SobreMi' className="flex flex-col bg-[var(--neutral-1o40-smjd)] text-justify items-center p-5 mt-0 md:mt-20 text-[var(--primary-smjd)]">
-            <article className="mb-8">
-                <h2 className="text-[var(--primary-smjd)] text-2xl font-bold text-center">Acerca de SummitExplorer JD</h2>
+        <section id='SobreMi' className="flex flex-col bg-gradient-to-br from-white via-[var(--neutral-1o40-smjd)] to-white text-justify items-center py-16 px-5 mt-0 md:mt-20 text-[var(--primary-smjd)] relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute inset-0 opacity-5 pointer-events-none">
+                <svg className="w-full h-full" viewBox="0 0 100 100" fill="none">
+                    <defs>
+                        <pattern id="about-pattern" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <circle cx="10" cy="10" r="1.5" fill="currentColor" className="text-[var(--accent-1-smjd)]"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100" height="100" fill="url(#about-pattern)" />
+                </svg>
+            </div>
+
+            <article className="mb-12 relative z-10">
+                <div className="text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[var(--accent-1-smjd)] to-[var(--accent-2-smjd)] rounded-3xl mb-6 shadow-2xl transform hover:rotate-12 transition-transform duration-300">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                    <h2 className="text-[var(--primary-smjd)] text-4xl md:text-5xl font-black mb-4 tracking-tight">Acerca de SummitExplorer JD</h2>
+                    <div className="w-32 h-1.5 bg-gradient-to-r from-[var(--accent-1-smjd)] to-[var(--accent-2-smjd)] mx-auto rounded-full shadow-lg"></div>
+                </div>
             </article>
 
             <article className="flex flex-row flex-wrap justify-center mb-12 w-full">
@@ -108,13 +128,13 @@ const AboutMe: FC = () => {
                 ))}
             </article>
 
-            <article className="w-full max-w-6xl mb-16 flex flex-row justify-center items-center">
+            <article className="w-full max-w-6xl mb-16 flex flex-row justify-center items-center relative z-10">
                 <section className="w-full">
-                    <div className="relative bg-gradient-to-br from-[var(--accent-1-smjd)]/10 via-transparent to-[var(--accent-2-smjd)]/10 rounded-3xl p-8 shadow-2xl border border-white/20">
+                    <div className="relative bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/40">
                         {/* Background decoration */}
-                        <div className="absolute inset-0 overflow-hidden rounded-3xl">
-                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-[var(--accent-1-smjd)]/20 to-transparent rounded-full blur-3xl"></div>
-                            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-tr from-[var(--accent-2-smjd)]/20 to-transparent rounded-full blur-3xl"></div>
+                        <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
+                            <div className="absolute -top-20 -right-20 w-60 h-60 bg-gradient-to-br from-[var(--accent-1-smjd)]/10 to-transparent rounded-full blur-3xl"></div>
+                            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-gradient-to-tr from-[var(--accent-2-smjd)]/10 to-transparent rounded-full blur-3xl"></div>
                         </div>
                         
                         <Carousel
@@ -154,11 +174,20 @@ const AboutMe: FC = () => {
                 </section>
             </article>
 
-            <article className="flex flex-row flex-wrap justify-center text-center">
-                <p className="m-4 md:w-2/3 w-full text-lg">
-                    Cada proyecto es una nueva expedición, cada cliente es un compañero de aventura.
-                    Te invitamos a formar parte de nuestro equipo, donde juntos podemos alcanzar cumbres extraordinarias.
-                </p>
+            <article className="flex flex-row flex-wrap justify-center text-center relative z-10 max-w-4xl">
+                <div className="backdrop-blur-sm bg-white/60 rounded-2xl p-8 shadow-xl border border-white/40">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-[var(--accent-1-smjd)] to-[var(--accent-2-smjd)] rounded-2xl mb-4 shadow-lg">
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z"/>
+                        </svg>
+                    </div>
+                    <p className="text-xl md:text-2xl font-semibold text-[var(--accent-2-smjd)] leading-relaxed">
+                        Cada proyecto es una nueva expedición, cada cliente es un compañero de aventura.
+                    </p>
+                    <p className="mt-4 text-lg text-gray-700">
+                        Te invitamos a formar parte de nuestro equipo, donde juntos podemos alcanzar cumbres extraordinarias.
+                    </p>
+                </div>
             </article>
         </section>
     );

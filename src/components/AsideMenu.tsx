@@ -153,29 +153,40 @@ const AsideMenu: FC = () => {
 
     return (
         <>
-            <aside ref={asideRef} className={(/desktop/.test(deviceType) ? "fixed top-0 left-0" : disableMenu ? "aside-menu-inverse fixed top-0" : "aside-menu fixed top-0 left-0") + " text-[var(--neutral-1-smjd)] pr-5 font-bold bg-[#0F1924] z-100"}>
+            <aside ref={asideRef} className={(/desktop/.test(deviceType) ? "fixed top-0 left-0" : disableMenu ? "aside-menu-inverse fixed top-0" : "aside-menu fixed top-0 left-0") + " text-[var(--neutral-1-smjd)] pr-5 font-bold bg-gradient-to-b from-[#0A0F16] via-[#0F1924] to-[#0A0F16] z-100 shadow-2xl border-r border-[#7DD1E4]/20"}>
                 <nav className="h-screen text-left pl-5 flex flex-col justify-center relative">
-                    {/* Línea vertical central con z-index bajo */}
-                    <div className="absolute left-10 top-0 w-0.5 bg-[#7DD1E4] h-full z-0"></div>
+                    {/* Línea vertical central mejorada */}
+                    <div className="absolute left-10 top-0 w-1 bg-gradient-to-b from-transparent via-[#7DD1E4] to-transparent h-full z-0 shadow-lg"></div>
 
                     <ul className="flex flex-col justify-center h-full space-y-12">
                         {menuItemsNames.map((item, index) => (
-                            <li key={index * 1} className="relative">
+                            <li key={index * 1} className="relative group">
                                 <a
                                     href={`#${item === 'Acerca de' ? 'SobreMi' : item.replace(' ', '')}`}
                                     onClick={() => { setItemSelected(item); setDisableMenu(true) }}
-                                    className={`flex items-center ${item === itemSelected ? "text-[#7DD1E4]" : "text-[#7DD1E4]/80"}`}
+                                    className={`flex items-center transition-all duration-300 ${item === itemSelected ? "text-white" : "text-[#7DD1E4]/70 hover:text-[#7DD1E4]"}`}
                                 >
-                                    {/* Ícono con fondo opaco para cubrir la línea */}
-                                    <div className="relative z-10 bg-[#0F1924] rounded-full p-1.5 border-2 border-[#0F1924]">
-                                        <div className="w-7 h-7 flex items-center justify-center">
+                                    {/* Ícono mejorado con efectos */}
+                                    <div className={`relative z-10 rounded-2xl p-2 border-2 transition-all duration-300 ${
+                                        item === itemSelected 
+                                            ? "bg-gradient-to-br from-[#7DD1E4] to-[#5BB8CC] border-[#7DD1E4] shadow-lg shadow-[#7DD1E4]/50 scale-110" 
+                                            : "bg-[#0F1924] border-[#0F1924] group-hover:border-[#7DD1E4]/50 group-hover:bg-[#7DD1E4]/10"
+                                    }`}>
+                                        <div className={`w-8 h-8 flex items-center justify-center ${item === itemSelected ? "text-[#0F1924]" : "text-[#7DD1E4]"}`}>
                                             {menuIcons[item]}
                                         </div>
                                     </div>
-                                    {/* Texto a la derecha */}
-                                    <span className="ml-4 uppercase tracking-wider font-bold text-lg">
+                                    {/* Texto mejorado */}
+                                    <span className={`ml-4 uppercase tracking-wider font-bold text-lg transition-all duration-300 ${
+                                        item === itemSelected ? "translate-x-2" : "group-hover:translate-x-1"
+                                    }`}>
                                         {item}
                                     </span>
+                                    
+                                    {/* Indicador de selección */}
+                                    {item === itemSelected && (
+                                        <span className="ml-auto mr-2 w-2 h-2 bg-white rounded-full shadow-lg shadow-white/50 animate-pulse"></span>
+                                    )}
                                 </a>
                             </li>
                         ))}
@@ -187,10 +198,10 @@ const AsideMenu: FC = () => {
                 id='toggle-button'
                 aria-label="Toggle menu"
                 ref={toggleButtonRef}
-                className={/mobile|tablet/.test(deviceType) ? "fixed bottom-7 z-50 right-7 p-3 rounded-full bg-[var(--accent-2-smjd)] text-white cursor-pointer shadow-2xl border-white" : "hidden"}
+                className={/mobile|tablet/.test(deviceType) ? "fixed bottom-7 z-50 right-7 p-4 rounded-2xl bg-gradient-to-br from-[var(--accent-1-smjd)] to-[var(--accent-2-smjd)] text-white cursor-pointer shadow-2xl border-2 border-white/20 hover:scale-110 hover:rotate-12 transition-all duration-300 backdrop-blur-sm" : "hidden"}
                 onClick={() => setDisableMenu(!disableMenu)}
             >
-                <svg className={`h-10 w-10 ${disableMenu ? 'rotate-90' : 'rotate-90-inverse'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg className={`h-10 w-10 transition-transform duration-300 ${disableMenu ? 'rotate-0' : 'rotate-90'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="3" y1="12" x2="21" y2="12" />
                     <line x1="3" y1="6" x2="21" y2="6" />
                     <line x1="3" y1="18" x2="21" y2="18" />
